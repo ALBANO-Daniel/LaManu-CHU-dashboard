@@ -1,0 +1,16 @@
+RewriteEngine On
+
+ErrorDocument 404 /error404
+
+RewriteRule ^error404$ controllers/pageNotFoundController.php
+RewriteRule ^home$ controllers/homeController.php
+
+RewriteRule ^patientlist$ controllers/patientListController.php
+RewriteRule ^patientadd$ controllers/patientAddController.php
+RewriteRule ^patientprofile$ controllers/patientProfileController.php
+
+RewriteRule ^appointmentlist$ controllers/appointmentListController.php
+RewriteRule ^appointmentadd$ controllers/appointmentAddController.php
+RewriteRule ^appointment$ controllers/appointmentController.php
+
+
