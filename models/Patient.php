@@ -81,7 +81,9 @@ class Patient
         
     }
     public function add(){
+
         $pdo = Database::getInstance(); //   call of public static method of 'Database' class to connect DBase
+
 
         $sql = "INSERT INTO `patient`('id','firstname','lastname','birthdate','phone','email') 
                 VALUES (:id,:firstname,:lastname,:birthdate,:phone,:email)";
@@ -107,5 +109,27 @@ class Patient
     }
     public function delete(){
 
+    }
+
+    public static function emailExist(string $email):bool
+    {
+        try{
+            $pdo = Database::getInstance();
+            $sql = 'SELECT `patients`.`id` FROM `patients` WHERE `email` = :email';
+
+            $stmt = $pdo->prepare($sql);  // return a object of the class PDOStatement..   statment handle
+            $stmt->bindValue(':email',$email);
+            $isTrueStmt = $stmt->execute();
+            if($isTrueStmt){
+                if(empty($stmt->fetch())){ return false; } else { return true; };
+            }
+            //$pdo = new PDO(DNS,login,pass);
+            //$pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
+
+        } catch(PDOException $e) {
+            echo $e->getMessage();
+        }
+
+        }
     }
 }

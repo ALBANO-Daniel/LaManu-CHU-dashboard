@@ -12,6 +12,7 @@ class Database{
             LOGIN,
             PASSWORD, // vars declared in the config.php
         );
+        $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ); 
         return $pdo;
     }
 }
