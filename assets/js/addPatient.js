@@ -11,9 +11,9 @@ document.addEventListener('DOMContentLoaded', function () {
         weekdaysShort: ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'],
         weekdaysAbbrev: ['D', 'L', 'M', 'M', 'J', 'V', 'S']
     },
+    format: 'yyyy-mm-dd',
     showMonthAfterYear: true,
     yearRange: [1910,2022], 
-    showClearBtn:true,
-    format:'dd/mm/yyyy'
+    showClearBtn:true
 })
 });

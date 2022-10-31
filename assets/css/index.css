@@ -1,0 +1,35 @@
+.unset{
+    all: unset;
+}
+.backgroundBlue{
+    background-color: #01579b !important;
+    color: #01579b !important;
+}
+
+/* INPUT FIELDS TEXT  */
+:focus{
+    border-bottom: 1px solid #01579b !important;
+    box-shadow: 0 1px 0 0 #01579b !important;
+}
+.active{
+    color: #01579b !important;
+}
+
+/* DATE PICKER */
+button:focus{
+    background-color: #01579b !important;
+}
+.datepicker-date-display{
+    background-color: #01579b !important;
+}
+
+.datepicker-table td.is-selected{
+    background-color: #01579b !important;
+    color: white !important;
+}
+.is-today{
+    color: #01579b !important;
+}
+.confirmation-btns button{
+    color: #01579b !important;
+}

@@ -77,10 +77,14 @@ class Patient
         return $this->_email;
     }
 
-    public function get(){
-        
+    public function getOne()
+    {
     }
-    public function add(){
+    public function getAll()
+    {
+    }
+    public function add()
+    {
 
         $pdo = Database::getInstance(); //   call of public static method of 'Database' class to connect DBase
 
@@ -96,40 +100,42 @@ class Patient
         // bindParam - rare  - as  if was 'var' so it can change later.
         // bindValue - affect definitvly, accept a 3rd parameter...
         // ...3rd param. to be precised if var type != string ( more used: PDO::PARAM_INT and PARAM_STR)
-        $stmt->bindValue(':firstname',$this->getFirstname());
-        $stmt->bindValue(':lastname',$this->getLastname());
-        $stmt->bindValue(':birthdate',$this->getBirthdate());
-        $stmt->bindValue(':phone',$this->getPhone());
-        $stmt->bindValue(':email',$this->getEmail());
+        $stmt->bindValue(':firstname', $this->getFirstname());
+        $stmt->bindValue(':lastname', $this->getLastname());
+        $stmt->bindValue(':birthdate', $this->getBirthdate());
+        $stmt->bindValue(':phone', $this->getPhone());
+        $stmt->bindValue(':email', $this->getEmail());
         return $stmt->execute(); // the method runs and also get its result its returned, boolean, used to test sucess/fail
     }
 
-    public function edit(){
-
-    }
-    public function delete(){
-
-    }
-
-    public static function emailExist(string $email):bool
+    public function edit()
     {
-        try{
+    }
+    public function delete()
+    {
+    }
+
+    public static function emailExist(string $email): bool
+    {
+        try {
             $pdo = Database::getInstance();
             $sql = 'SELECT `patients`.`id` FROM `patients` WHERE `email` = :email';
 
             $stmt = $pdo->prepare($sql);  // return a object of the class PDOStatement..   statment handle
-            $stmt->bindValue(':email',$email);
+            $stmt->bindValue(':email', $email);
             $isTrueStmt = $stmt->execute();
-            if($isTrueStmt){
-                if(empty($stmt->fetch())){ return false; } else { return true; };
+            if ($isTrueStmt) {
+                if (empty($stmt->fetch())) {
+                    return false;
+                } else {
+                    return true;
+                };
             }
             //$pdo = new PDO(DNS,login,pass);
             //$pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
 
-        } catch(PDOException $e) {
+        } catch (PDOException $e) {
             echo $e->getMessage();
-        }
-
         }
     }
 }

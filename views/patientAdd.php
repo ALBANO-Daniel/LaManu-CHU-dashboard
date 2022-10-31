@@ -13,6 +13,10 @@
 
 // allways NOVALIDATE test to test full block backend
 
+var_dump($_GET);
+
+
+
 ?>
 
 
@@ -24,44 +28,57 @@
     <div class="container">
         <div class="card">
             <br>
-            <form id="registerForm" action="" class="container">
+            <form id="registerForm" action="#" class="container">
                 <!-- Name input  -->
                 <div class="row">
                     <div class="input-field col s12 m6">
-                        <i class="material-icons prefix">account_circle</i>
-                        <input id="firstName" type="text" class="validate counter" max-length="10">
-                        <label for="firstName">Prenom</label>
+                        <i class="material-icons prefix light-blue-text text-darken-4">account_circle</i>
+                        <input name="firstname" id="firstname" type="text" class="validate" value="<?= $firstname ?? '' ?>" pattern="^[A-Za-z-éèêëàâäôöûüç' ]+$" />
+                        <label for="firstname">Prenom</label>
+                        <span class="helper-text" data-error="prenom incorrect" data-sucess=""></span>
                     </div>
                     <div class="col s1"></div>
                     <div class="input-field col s11 m6">
-                        <input id="last_name" type="text" class="validate">
-                        <label for="last_name">Nom</label>
+                        <input name="lastname" id="lastname" type="text" class="validate" value="<?= $lastname ?? '' ?>" pattern="^[A-Za-z-éèêëàâäôöûüç' ]+$" />
+                        <label for="lastname" class="">Nom</label>
+                        <span class="helper-text" data-error="nom incorrect" data-sucess=""></span>
                     </div>
                 </div>
                 <!-- Birthday Input -->
                 <div class="row">
                     <div id="datePicker" class="input-field col s12">
-                        <i class="material-icons prefix">date_range</i>
-                        <input id="birthdate" type="text" class="datepicker validate" />
+                        <i class="material-icons prefix light-blue-text text-darken-4">date_range</i>
+                        <input name="birthdate" id="birthdate" type="text" class="datepicker validate" value="<?= $birthdate ?? '' ?>" />
                         <label for="birthdate">Date Naissance</label>
+                        <span class="helper-text" data-error="date naissance obligatoire" data-sucess=""></span>
                     </div>
                 </div>
                 <!-- Cellhpone/Fixe Input  -->
                 <div class="row">
                     <div class="input-field col s12">
-                        <i class="material-icons prefix">phone</i>
-                        <input id="phone" type="text" class="validate">
+                        <i class="material-icons prefix light-blue-text text-darken-4">phone</i>
+                        <input name="phone" id="phone" type="text" class="validate" pattern="^[0-9]+$" value="<?= $phone ?? '' ?>">
                         <label for="phone">N. telefone</label>
+                        <span class="helper-text" data-error="telephone incorrect" data-sucess=""></span>
                     </div>
                     <!-- v2.0 -> checkbox, 'is not mine' number, JS-> show other box for phone`s owner  -->
                 </div>
                 <!-- email input  -->
                 <div class="row">
                     <div class="input-field col s12 m12">
-                        <i class="material-icons prefix">email</i>
-                        <input class="validate" type="email" id="user" data-length="20" max-length="20">
-                        <label for="user">Email</label>
-                        <span class="helper-text" data-error="format incorrect" data-sucess=""></span>
+                        <i class="material-icons prefix light-blue-text text-darken-4">email</i>
+                        <input name="email" class="validate" type="email" id="email" value="<?= $email ?? '' ?>">
+                        <label for="email">Email</label>
+                        <span class="helper-text" data-error="email incorrect" data-sucess=""></span>
+                    </div>
+                </div>
+                <!-- submit button  -->
+                <div class="row white-text">
+                    <div class="col s12 center">
+                        <button class="btn waves-effect waves-light light-blue darken-4" type="submit">
+                            Envoyer
+                            <i class="material-icons right">send</i>
+                        </button>
                     </div>
                 </div>
             </form>
