@@ -60,16 +60,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $error["email"] = "L'adresse mail est obligatoire!!";
     }
 
-     //===================== phone : Nettoyage et validation =======================
-     $phone = trim(filter_input(INPUT_POST, 'phone', FILTER_SANITIZE_SPECIAL_CHARS));
-     if (!empty($phone)) {
-         $test = filter_var($phone, FILTER_VALIDATE_EMAIL);
-         if (!$test) {
-             $error["phone"] = "Le telephone n'est pas au bon format!!";
-         }
-     } else {
-         $error["phone"] = "Le telephone est obligatoire!!";
-     }
+    //===================== phone : Nettoyage et validation =======================
+    $phone = trim(filter_input(INPUT_POST, 'phone', FILTER_SANITIZE_SPECIAL_CHARS));
+    if (!empty($phone)) {
+        $test = filter_var($phone, FILTER_VALIDATE_EMAIL);
+        if (!$test) {
+            $error["phone"] = "Le telephone n'est pas au bon format!!";
+        }
+    } else {
+        $error["phone"] = "Le telephone est obligatoire!!";
+    }
 
     //email, add a test to test if user allready registered  if Patient::emailExist($email) --> $error
 
