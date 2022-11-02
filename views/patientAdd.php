@@ -8,8 +8,8 @@
         <!-- // example of action prop  "?status=delete&id=2" -->
         <form id="registerForm" class="container" action="<?= htmlspecialchars($_SERVER['PHP_SELF']) ?>" method="post" enctype="multipart/form-data">
             <div class="row">
-                <p>Error PDO : <?= $errorPdo ?? 'none' ?></p>
-                <p>Error Insertion(add) Patient : <?= $isAddedPatient ? 'patient added' : 'error: patient not added' ?></p>
+                <p>Error PDO : <span class="error-text"></span><?= $errorPdo ?? '' ?></p>
+                <p>Error Insertion(add) Patient : <span class="error-text"><?= $isAddedPatient ? 'patient added' : 'patient not added' ?></span></p>
             </div>
             <!-- Name input  -->
             <div class="row">

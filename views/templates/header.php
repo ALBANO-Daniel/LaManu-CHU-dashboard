@@ -11,5 +11,4 @@
       <link type="text/css" rel="stylesheet" href="/assets/css/navBar.css">
       <link type="text/css" rel="stylesheet" href="/assets/css/index.css">
     </head>
-
     <body>
