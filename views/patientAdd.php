@@ -1,12 +1,14 @@
 <main class="container">
-    
+
     <br>
-    <h1 class="center">Nouveaux Patient</h1>
     <br>
     <div class="card">
         <br>
+        <h1 class="center light-blue-text text-darken-4">Nouveaux Patient</h1>
+        <br>
         <!-- // example of action prop  "?status=delete&id=2" -->
         <form id="registerForm" class="container" action="<?= htmlspecialchars($_SERVER['PHP_SELF']) ?>" method="post" enctype="multipart/form-data">
+            <!-- output test errors    -->
             <div class="row">
                 <p>Error PDO : <span class="error-text"></span><?= $errorPdo ?? '' ?></p>
                 <p>Error Insertion(add) Patient : <span class="error-text"><?= $isAddedPatient ? 'patient added' : 'patient not added' ?></span></p>
