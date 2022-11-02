@@ -50,7 +50,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } else {
         $error["birthdate"] = "La date de naissance est obligatoire!!";
     }
-
     //===================== email : Nettoyage et validation =======================
     $email = trim(filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL));
     if (!empty($email)) {
