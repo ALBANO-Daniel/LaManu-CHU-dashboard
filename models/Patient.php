@@ -80,20 +80,18 @@ class Patient
     public function getOne()
     {
     }
+    
     public function getAll()
     {
     }
+
     public function add()
     {
-
         $pdo = Database::getInstance(); //   call of public static method of 'Database' class to connect DBase
-
-
-        $sql = "INSERT INTO `patient`('id','firstname','lastname','birthdate','phone','email') 
-                VALUES (:id,:firstname,:lastname,:birthdate,:phone,:email)";
+        $sql = "INSERT INTO `patients`(`firstname`,`lastname`,`birthdate`,`phone`,`email`) 
+                VALUES (:firstname,:lastname,:birthdate,:phone,:email)";
         // nominativ marker ( : )   'var' sql, interact with prepare method of pdo, and protect malware SQL injections 
         // interrogativ marker ( ? )
-
         //statement e.g. communications with database
         // stmt || sth
         $stmt = $pdo->prepare($sql);

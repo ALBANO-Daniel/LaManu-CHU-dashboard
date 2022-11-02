@@ -5,6 +5,12 @@
     background-color: #01579b !important;
     color: #01579b !important;
 }
+.error-text{
+    color: red;
+}
+.display-none{
+    display: none;
+}
 
 /* INPUT FIELDS TEXT  */
 :focus{

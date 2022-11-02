@@ -3,22 +3,23 @@ require_once(__DIR__ . '/../config/config.php');
 require_once(__DIR__ . '/../helpers/functions/Database.php');
 require_once(__DIR__ . '/../models/Patient.php');
 
-
 // fisrt time it loads, tehre is a GET method, because tehre is a Form? or because is php archive... ?
 // once is submited with data the form request  will enter the IF statement:
+$isAddedPatient = '';
+$error = [];
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     //===================== firstname : Nettoyage et validation =======================
     $firstname = trim(filter_input(INPUT_POST, 'firstname', FILTER_SANITIZE_SPECIAL_CHARS));
     if (empty($firstname)) {
-        $error["firstname"] = "Vous devez entrer un prenom!!";
+        $error['firstname'] = "Vous devez entrer un prenom!!";
     } else {
-        $isOk = filter_var($lastname, FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => '/' . REGEX_NO_NUMBER . '/')));
+        $isOk = filter_var($firstname, FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => '/' . REGEX_NO_NUMBER . '/')));
         if (!$isOk) {
-            $error["firstname"] = "Le prenom n'est pas au bon format!!";
+            $error['firstname'] = 'Le prenom n\'est pas au bon format!!';
         } else {
             if (strlen($firstname) <= 1 || strlen($firstname) >= 70) {
-                $error["firstname"] = "La longueur du prenom n'est pas bon";
+                $error['firstname'] = "La longueur du prenom n'est pas bon";
             }
         }
     }
@@ -37,11 +38,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
         }
     }
+
     //===================== birthdate : Nettoyage et validation =======================
     $birthdate = trim(filter_input(INPUT_POST, 'birthdate', FILTER_SANITIZE_SPECIAL_CHARS));
 
     if (!empty($birthdate)) {
-        $test = filter_var($email, FILTER_VALIDATE_EMAIL);
+        $test = filter_var($birthdate, FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => '/' . REGEX_DATE . '/')));
         if (!$test) {
             $error["birthdate"] = "La date n'est pas au bon format!!";
         }
@@ -78,7 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (empty($error)) {
         try {
             $patient = new Patient();
-            $patient->setFirstname($fistname);
+            $patient->setFirstname($firstname);
             $patient->setLastName($lastname);
             $patient->setBirthdate($birthdate);
             $patient->setPhone($phone);

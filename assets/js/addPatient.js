@@ -1,3 +1,4 @@
+// datepicker configurations and translation to french
 document.addEventListener('DOMContentLoaded', function () {
     var elems = document.querySelectorAll('.datepicker');
     var instances = M.Datepicker.init(elems,{
@@ -16,4 +17,13 @@ document.addEventListener('DOMContentLoaded', function () {
     yearRange: [1910,2022], 
     showClearBtn:true
 })
-});
+})
+
+// handle the erase of the inputs error mensages from the Back-end...
+var inputs = document.querySelectorAll('.input-field')
+
+inputs.forEach((e) => {
+    e.childNodes[3].addEventListener("focus", ()=> {
+        e.childNodes[7].innerText = '';
+    })
+})
