@@ -35,13 +35,13 @@ var_dump($_GET);
                         <i class="material-icons prefix light-blue-text text-darken-4">account_circle</i>
                         <input name="firstname" id="firstname" type="text" class="validate" value="<?= $firstname ?? '' ?>" pattern="^[A-Za-z-éèêëàâäôöûüç' ]+$" />
                         <label for="firstname">Prenom</label>
-                        <span class="helper-text" data-error="prenom incorrect" data-sucess=""></span>
+                        <span class="helper-text" data-error="<?= $error["firstname"] ?? 'prenom incorrect' ?>" data-sucess=""></span>
                     </div>
                     <div class="col s1"></div>
                     <div class="input-field col s11 m6">
                         <input name="lastname" id="lastname" type="text" class="validate" value="<?= $lastname ?? '' ?>" pattern="^[A-Za-z-éèêëàâäôöûüç' ]+$" />
                         <label for="lastname" class="">Nom</label>
-                        <span class="helper-text" data-error="nom incorrect" data-sucess=""></span>
+                        <span class="helper-text" data-error="<?= $error["lastname"] ?? 'nom incorrect' ?>" data-sucess=""></span>
                     </div>
                 </div>
                 <!-- Birthday Input -->
@@ -50,7 +50,7 @@ var_dump($_GET);
                         <i class="material-icons prefix light-blue-text text-darken-4">date_range</i>
                         <input name="birthdate" id="birthdate" type="text" class="datepicker validate" value="<?= $birthdate ?? '' ?>" />
                         <label for="birthdate">Date Naissance</label>
-                        <span class="helper-text" data-error="date naissance obligatoire" data-sucess=""></span>
+                        <span class="helper-text" data-error="<?= $error["birthdate"] ?? 'date obligatoire' ?>" data-sucess=""></span>
                     </div>
                 </div>
                 <!-- Cellhpone/Fixe Input  -->
@@ -59,7 +59,7 @@ var_dump($_GET);
                         <i class="material-icons prefix light-blue-text text-darken-4">phone</i>
                         <input name="phone" id="phone" type="text" class="validate" pattern="^[0-9]+$" value="<?= $phone ?? '' ?>">
                         <label for="phone">N. telefone</label>
-                        <span class="helper-text" data-error="telephone incorrect" data-sucess=""></span>
+                        <span class="helper-text" data-error="<?= $error["phone"] ?? 'telephone incorrect' ?>" data-sucess=""></span>
                     </div>
                     <!-- v2.0 -> checkbox, 'is not mine' number, JS-> show other box for phone`s owner  -->
                 </div>
@@ -69,7 +69,7 @@ var_dump($_GET);
                         <i class="material-icons prefix light-blue-text text-darken-4">email</i>
                         <input name="email" class="validate" type="email" id="email" value="<?= $email ?? '' ?>">
                         <label for="email">Email</label>
-                        <span class="helper-text" data-error="email incorrect" data-sucess=""></span>
+                        <span class="helper-text" data-error="<?= $error["email"] ?? 'email incorrect' ?>" data-sucess=""></span>
                     </div>
                 </div>
                 <!-- submit button  -->

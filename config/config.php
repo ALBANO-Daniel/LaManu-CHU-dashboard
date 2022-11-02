@@ -8,6 +8,7 @@ define('PASSWORD', 'zzz');
 
 
 define('REGEX_NO_NUMBER',"^[A-Za-z-éèêëàâäôöûüç' ]+$");
+define('REGEX_ONLY_NUMBER','^[0-9]*$');
 // define('REGEX_ZIPCODE','^[0-9]{5}$');
 // define('REGEX_LINKEDIN','^(https:\/\/)?((www\.|fr\.)?([a-zA-Z0-9\.\/=\?\-]*))$');
 define('REGEX_DATE','^([0-9]{4})[\/\-]?([0-9]{2})[\/\-]?([0-9]{2})$');

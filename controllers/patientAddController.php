@@ -63,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     //===================== phone : Nettoyage et validation =======================
     $phone = trim(filter_input(INPUT_POST, 'phone', FILTER_SANITIZE_SPECIAL_CHARS));
     if (!empty($phone)) {
-        $test = filter_var($phone, FILTER_VALIDATE_EMAIL);
+        $test = filter_var($phone, FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => '/' . REGEX_ONLY_NUMBER . '/')));
         if (!$test) {
             $error["phone"] = "Le telephone n'est pas au bon format!!";
         }
