@@ -10,5 +10,6 @@
       <!-- css main overide materializecss  -->
       <link type="text/css" rel="stylesheet" href="/assets/css/navBar.css">
       <link type="text/css" rel="stylesheet" href="/assets/css/index.css">
+      <link rel="stylesheet" href="/assets/css/patientList.css">
     </head>
     <body>
