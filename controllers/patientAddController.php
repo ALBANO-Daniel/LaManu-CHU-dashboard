@@ -42,6 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     //===================== birthdate : Nettoyage et validation =======================
     $birthdate = trim(filter_input(INPUT_POST, 'birthdate', FILTER_SANITIZE_SPECIAL_CHARS));
 
+
     if (!empty($birthdate)) {
         $test = filter_var($birthdate, FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => '/' . REGEX_DATE . '/')));
         if (!$test) {
@@ -50,6 +51,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } else {
         $error["birthdate"] = "La date de naissance est obligatoire!!";
     }
+
+    
     //===================== email : Nettoyage et validation =======================
     $email = trim(filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL));
     if (!empty($email)) {
