@@ -1,6 +1,5 @@
 <?php
 $patientProfileId = $_GET['profilepatient'] ?? 'no profile to be showned';
-$patientToBeDeleted = $_GET['deletepatient'] ?? 'dont delete me';
 
 ?>
 
@@ -13,10 +12,10 @@ $patientToBeDeleted = $_GET['deletepatient'] ?? 'dont delete me';
 
         <h1 class="row">profil patient</h1>
         <ul class="row">
-            <li class="col s6">Prenom : </li>
-            <li class="col s6">Nom : </li>
-            <li class="col s6">Date naissance : </li>
-            <li class="col s6">Telephone : </li>
+            <li class="col s6">Prenom : <?= $patient->prenom ?></li>
+            <li class="col s6">Nom : <?= $patient->prenom ?></li>
+            <li class="col s6">Date naissance : <?= $patient->prenom ?></li>
+            <li class="col s6">Telephone : <?= $patient->prenom ?></li>
             <li class="col s6"></li>
         </ul>
     </div>

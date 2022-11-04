@@ -1,28 +1,29 @@
 <?php
+require_once(__DIR__ . '/../models/Patient.php');
 
-$patientList[0]["id"] = 1;
-$patientList[0]["firstname"] = 'Rogger';
-$patientList[0]["lastname"] = 'Lecroix';
-$patientList[0]["birthdate"] = '15 Mai 1981';
-$patientList[0]["email"] = 'roggerthat@gmail.com';
-$patientList[0]["cellphone"] = '0504932312';
+// setup patient list total number of pages
+$patientListPagesTotal = Patient::getTotalNumberOf();
+if($patientListPagesTotal%8 == 0){
+    $patientListPagesTotal = intval($patientListPagesTotal/8) - 1;
+} else {
+    $patientListPagesTotal = intval($patientListPagesTotal/8);
+}
 
-$patientList[1]["id"] = 3;
-$patientList[1]["firstname"] = 'Marie';
-$patientList[1]["lastname"] = 'Souflet';
-$patientList[1]["birthdate"] = '26 Aout 1951';
-$patientList[1]["email"] = 'mariesouf@gmail.com';
-$patientList[1]["cellphone"] = '0940393542';
+// show actual page 
+$patientListPagesActual = $_GET['page'] ?? 0;
 
-$patientListPages = [0,1,2,3,4,5];
+// get all patients info for the actual page
+$patientList = Patient::getAll($patientListPagesActual);
 
-$patientListPagesActual = $_GET['page'];
+
 ?>
 
 <main class="container">
+    <br>
+    <br>
+    <br>
+    <br>
     <div class="card center">
-
-        <h1>Patient List</h1>
         <div class="row">
             <div class="col s6 m6">
                 <a class="white-text" href='/patientadd'>
@@ -46,39 +47,27 @@ $patientListPagesActual = $_GET['page'];
             </div>
         </div>
         <section class="listPatient">
+            <h3 class="">Patient List</h3>
             <!-- patient list  -->
-            <div class="row">
-                <div class="col m2">Name</div>
-                <div class="col m2">Surname</div>
-                <div class="col m2">birthdate</div>
-                <div class="col m3">email</div>
-                <div class="col m2">cellphone</div>
-                <div class="col m1">
-                </div>
-            </div>
             <?php
-            foreach ($patientList as $key => $value) { ?>
-                <div class="row">
-                    <div class="col m2"><?= $patientList[$key]["firstname"] ?></div>
-                    <div class="col m2"><?= $patientList[$key]["lastname"] ?></div>
-                    <div class="col m2"><?= $patientList[$key]["birthdate"] ?></div>
-                    <div class="col m3"><?= $patientList[$key]["email"] ?></div>
-                    <div class="col m2"><?= $patientList[$key]["cellphone"] ?></div>
-                    <div class="col m1">
-                        <a href="/patientprofile?profilepatient=<?= $patientList[$key]["id"] ?>"><i class="material-icons">person</i></a></li>
-                        <a href="/patientprofile?deletepatient=<?= $patientList[$key]["id"] ?>"><i class="material-icons red-text">delete_forever</i></a></li>
-                    </div>
+            foreach ($patientList as $patient) { ?>
+                <div class="card row">
+                    <div class="col s11 m5"><?= $patient->firstname ?></div><span class="s1 m1"><a href="/patientprofile?profilepatient=<?= $patient->id ?>"><i class="material-icons">person</i></a></span>
+                    <div class="col s11 m5"><?= strtoupper($patient->lastname) ?></div><span class="s1 m1"><a href="/patientprofile?deletepatient=<?= $patient->id ?>"><i class="material-icons red-text">delete_forever</i></a></span>
                 </div>
             <?php } ?>
             <!-- pagination list  -->
             <ul class="row pagination">
                 <li class="waves-effect"><a href="?page=<?= $patientListPagesActual - 1 ?>"><i class="material-icons">chevron_left</i></a></li>
 
-                <?php foreach ($patientListPages as $key => $value) { ?>
-                    <li class="<?= $patientListPagesActual == $key ? 'active' : 'waves-effect' ?>">
-                        <a href="?page=<?= $patientListPages[$key] ?>"><?= $key + 1 ?></a>
+                <?php
+
+                for ($i = 0; $i < $patientListPagesTotal+1 ; $i++) { ?>
+                    <li class="<?= $patientListPagesActual == $i ? 'active' : 'waves-effect' ?>">
+                        <a href="?page=<?= $i ?>"><?= $i + 1?></a>
                     </li>
                 <?php } ?>
+
 
                 <li class="waves-effect"><a href="?page=<?= $patientListPagesActual + 1 ?>"><i class="material-icons">chevron_right</i></a></li>
             </ul>

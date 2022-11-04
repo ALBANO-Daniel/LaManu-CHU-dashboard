@@ -79,15 +79,34 @@ class Patient
 
     public function getOne()
     {
+
     }
     
-    public function getAll()
+    public static function getTotalNumberOf()
     {
+        $pdo = Database::getInstance();
+        $sql = 'SELECT COUNT(*) AS count FROM `patients`;';
+        $stmt = $pdo->query($sql);
+        $stmt = $stmt->fetch();
+        return intval($stmt->count);
+    }
+
+    public static function getAll(int $page):array
+    {
+        // limit by 8-12 per page, in request sql with offset -> 
+        $pdo = Database::getInstance();
+        $patientPerPage = 8;
+        $offset = $page * $patientPerPage;
+        $sql = "SELECT `id`, `firstname`, `lastname`, `birthdate`, `phone`, `email` 
+        FROM `patients`
+        LIMIT 8 OFFSET $offset;";
+        $stmt = $pdo->query($sql);
+        return $stmt->fetchAll();
     }
 
     public function add()
     {
-        $pdo = Database::getInstance(); //   call of public static method of 'Database' class to connect DBase
+        $pdo = Database::getInstance(); // //   call of public static method of 'Database' class to connect DBase
         $sql = "INSERT INTO `patients`(`firstname`,`lastname`,`birthdate`,`phone`,`email`) 
                 VALUES (:firstname,:lastname,:birthdate,:phone,:email)";
         // nominativ marker ( : )   'var' sql, interact with prepare method of pdo, and protect malware SQL injections 
