@@ -15,3 +15,34 @@ define('REGEX_DATE','^([0-9]{4})[\/\-]?([0-9]{2})[\/\-]?([0-9]{2})$');
 // define('REGEX_TEXTAREA','^[a-zA-Z\n\r]*$');
 
 define('AUTHORIZED_IMAGE_FORMAT', ['image/jpeg', 'image/png']);
+
+
+                                                                //
+//  translate TIME obj
+$formatLongFR = new IntlDateFormatter(
+    'fr_FR',
+    IntlDateFormatter::FULL,
+    IntlDateFormatter::NONE,
+    null,
+    null,
+    "'LE' dd LLLL Y 'a' HH (EEEE)"
+);
+
+            //named arg.. PHP 8
+            // $formatShortFR = new IntlDateFormatter(
+                // locale: 'fr_FR',
+                // pattern: "dd LLLL Y"
+            // );
+
+$formatShortFR = new IntlDateFormatter(
+    'fr_FR',
+    IntlDateFormatter::FULL,
+    IntlDateFormatter::NONE,
+    null,
+    null,
+    'dd LLLL Y'
+);
+// to make capitalize inside regex time
+// "'le' dd '<span class=\"up\"> 'LLLL'</span> ..." 
+                                                                //
+

@@ -77,9 +77,22 @@ class Patient
         return $this->_email;
     }
 
-    public function getOne()
+    public static function findId()
     {
+        // $pdo = Database::getInstance();
+        // var_dump( intval($pdo->lastInsertId()) ); die;
+        // $pdo = Database::getInstance();
+        // $sql = "SELECT `id` FROM `patients` WHERE `email` = '$findEmail';";
+        // $stmt = $pdo->query($sql);
+        // return intval($stmt->fetch());
+    }
 
+    public static function getOne(int $id)
+    {
+        $pdo = Database::getInstance();
+        $sql = "SELECT * FROM `patients` WHERE `ID` = $id ;";
+        $stmt = $pdo->query($sql);
+        return $stmt->fetch();
     }
     
     public static function getTotalNumberOf()
@@ -122,7 +135,12 @@ class Patient
         $stmt->bindValue(':birthdate', $this->getBirthdate());
         $stmt->bindValue(':phone', $this->getPhone());
         $stmt->bindValue(':email', $this->getEmail());
-        return $stmt->execute(); // the method runs and also get its result its returned, boolean, used to test sucess/fail
+         // the method runs and also get its result its returned, boolean, used to test sucess/fail
+        if($stmt->execute()){
+            return intval($pdo->lastInsertId());
+        } else {
+            return false;
+        }
     }
 
     public function edit()

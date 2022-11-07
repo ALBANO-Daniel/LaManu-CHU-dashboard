@@ -15,12 +15,12 @@ $patientListPagesActual = $_GET['page'] ?? 0;
 // get all patients info for the actual page
 $patientList = Patient::getAll($patientListPagesActual);
 
-
 ?>
 
 <main class="container">
     <br>
     <br>
+    <?= 'delete : ' . $_GET['deleteid'] ?>
     <br>
     <br>
     <div class="card center">
@@ -52,8 +52,8 @@ $patientList = Patient::getAll($patientListPagesActual);
             <?php
             foreach ($patientList as $patient) { ?>
                 <div class="card row">
-                    <div class="col s11 m5"><?= $patient->firstname ?></div><span class="s1 m1"><a href="/patientprofile?profilepatient=<?= $patient->id ?>"><i class="material-icons">person</i></a></span>
-                    <div class="col s11 m5"><?= strtoupper($patient->lastname) ?></div><span class="s1 m1"><a href="/patientprofile?deletepatient=<?= $patient->id ?>"><i class="material-icons red-text">delete_forever</i></a></span>
+                    <div class="col s11 m5"><?= $patient->firstname ?></div><span class="s1 m1"><a href="/patientprofile?id=<?= $patient->id ?>"><i class="material-icons">person</i></a></span>
+                    <div class="col s11 m5"><?= strtoupper($patient->lastname) ?></div><span class="s1 m1"><a href="/?deleteid=<?= $patient->id ?>"><i class="material-icons red-text">delete_forever</i></a></span>
                 </div>
             <?php } ?>
             <!-- pagination list  -->

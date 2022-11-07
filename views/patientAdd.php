@@ -1,3 +1,12 @@
+<?php
+//  $edit = false; || get input
+$edit = false;
+
+
+// $email = 'glob@glob.com';
+
+?>
+
 <main class="container">
 
     <br>
@@ -11,7 +20,7 @@
             <!-- output test errors    -->
             <div class="row">
                 <p>Error PDO : <span class="error-text"></span><?= $errorPdo ?? '' ?></p>
-                <p>Error Insertion(add) Patient : <span class="error-text"><?= $isAddedPatient ? 'patient added' : 'patient not added' ?></span></p>
+                <p>Error Insertion(add) Patient : <span class="error-text"><?= $addedPatientId ? 'patient added' : 'patient not added' ?></span></p>
             </div>
             <!-- Name input  -->
             <div class="row">

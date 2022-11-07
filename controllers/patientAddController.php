@@ -5,8 +5,9 @@ require_once(__DIR__ . '/../models/Patient.php');
 
 // fisrt time it loads, tehre is a GET method, because tehre is a Form? or because is php archive... ?
 // once is submited with data the form request  will enter the IF statement:
-$isAddedPatient = '';
+// $isAddedPatient = '';
 $error = [];
+$addedPatientId = '';
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     //===================== firstname : Nettoyage et validation =======================
@@ -90,7 +91,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // a non-insertion will not be detected by PDOException...
             //...$isAdded serve to UX output the Sucess/fail to create $patient on DBase
             // manage error 'user allready exists' && 'something went wrong
-            $isAddedPatient = $patient->add();
+            if($addedPatientId = $patient->add()){
+                header("Location: /patientprofile?id=$addedPatientId");
+            } else {
+                $addedPatientId = ' creation de utilizateur impossible. call admin reseaux!';
+            }
         } catch (PDOException $e) {
             $errorPdo = "ERREUR : " . $e->getMessage();
             //redirect to 404 with "generic error msg" and a "more" btn with $errorPdo

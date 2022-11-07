@@ -5,11 +5,20 @@
     background-color: #01579b !important;
     color: #01579b !important;
 }
+.btn{
+    width: 100% !important;
+}
 .error-text{
     color: red;
 }
 .display-none{
     display: none;
+}
+.hidden{
+    visibility: hidden !important;
+}
+.visible{
+    visibility: visible !important;
 }
 
 /* INPUT FIELDS TEXT  */
