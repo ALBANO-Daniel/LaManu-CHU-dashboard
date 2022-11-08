@@ -17,8 +17,10 @@
             <?php } ?>
             <!-- pagination list  -->
             <ul class="row pagination">
+            <?php if($patientListPagesActual != 0){ ?>
                 <li class="waves-effect"><a href="?page=<?= $patientListPagesActual - 1 ?>"><i class="material-icons">chevron_left</i></a></li>
-
+                <?php } ?>
+                
                 <?php if( $totalPages <= $pagesPerPagination){
                     for($page = 0; $page <= $totalPages; $page++){ ?>
                         <li class="<?= $patientListPagesActual == $page ? 'active' : 'waves-effect' ?>">
@@ -62,7 +64,9 @@
 
                 <?php } ?>
 
-                <li class="waves-effect"><a href="?page=<?= $currentPage + 1 ?>"><i class="material-icons">chevron_right</i></a></li>
+                <?php if($patientListPagesActual != $totalPages){ ?>
+                    <li class="waves-effect"><a href="?page=<?= $currentPage + 1 ?>"><i class="material-icons">chevron_right</i></a></li>
+                <?php } ?>
             </ul>
 
         </section>

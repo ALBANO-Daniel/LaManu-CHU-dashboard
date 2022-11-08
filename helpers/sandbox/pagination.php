@@ -40,14 +40,21 @@ class Element{
 
 <body>
     <ul class="row pagination">
-        <li class="waves-effect"><a href="?page=<?= $currentPage - 1 ?>"><i class="material-icons">chevron_left</i></a></li>
+        <?php if($currentPage != 0){ ?>
+            <li class="waves-effect"><a href="?page=<?= $currentPage - 1 ?>"><i class="material-icons">chevron_left</i></a></li>            
+        <?php } ?>
 
-        <?php if ($currentPage < $pagesPerPagination - 1) {
+        <?php if($totalPages <= $pagesPerPagination){ 
+            for($page = 0; $page <= $totalPages; $page++){ ?>
+                <li class="<?= $currentPage == $page ? 'active' : 'waves-effect' ?>">
+                    <a href="?page=<?= $page ?>"><?= $page ?></a>
+                </li>
+            <?php } ?>
+        <?php } else if ($currentPage < $pagesPerPagination - 1) {
 
             for ($page = 0; $page < $pagesPerPagination; $page++) { ?>
                 <li class="<?= $currentPage == $page ? 'active' : 'waves-effect' ?>">
                     <a href="?page=<?= $page ?>"><?= $page ?></a>
-
                 </li>
             <?php } ?>
             <span> . . . </span>
@@ -79,7 +86,9 @@ class Element{
 
         <?php } ?>
 
-        <li class="waves-effect"><a href="?page=<?= $currentPage + 1 ?>"><i class="material-icons">chevron_right</i></a></li>
+        <?php if($currentPage != $totalPages){ ?>
+            <li class="waves-effect"><a href="?page=<?= $currentPage + 1 ?>"><i class="material-icons">chevron_right</i></a></li>
+        <?php } ?>
     </ul>
 
 
