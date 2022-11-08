@@ -16,7 +16,7 @@
         </div>
         <a href="#" data-target="mobile-demo" class="right sidenav-trigger"><i class="material-icons">menu</i></a>
         <ul class="right hide-on-med-and-down">
-            <li><a href="/home">Accueil</a></li>
+            <li><a href="/">Accueil</a></li>
             <li><a class="dropdown-trigger" href="#!" data-target="rdvsMenu">rendez-vous<i class="material-icons right">arrow_drop_down</i></a></li>
             <li><a class="dropdown-trigger" href="#!" data-target="patientsMenu">patients<i class="material-icons right">arrow_drop_down</i></a></li>
         </ul>
@@ -28,7 +28,7 @@
         <img class="" width="80%" src="/assets/img/logo-medicine.svg" alt="logo site">
     </li>
     <li class="divider"></li>
-    <li><a href="/home">Accueil</a></li>
+    <li><a href="/">Accueil</a></li>
     <li><a href="/patientadd">Ajouter un patient</a></li>
     <li><a href="/patientlist">Liste des patients</a></li>
     <li><a href="/appointmentadd">Ajouter une rendez-vous</a></li>

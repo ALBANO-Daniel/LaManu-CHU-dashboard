@@ -1,14 +1,4 @@
-<?php
-//  $edit = false; || get input
-$edit = false;
-
-
-// $email = 'glob@glob.com';
-
-?>
-
 <main class="container">
-
     <br>
     <br>
     <div class="card">
