@@ -11,9 +11,11 @@ editBtn.onclick = () => {
     editBtn.classList.add('disabled');
 };
 saveBtn.onclick = () => {
-    inputs.forEach(input => {
-        input.setAttribute('disabled', '');      
-    });
+    // BUG : disable switch handled by SUBMIT btn trigger empty-form sending...
+    //... also theres no need, as refresh reset to true the disable attribute 
+        // inputs.forEach(input => {
+        //     input.setAttribute('disabled', '');      
+        // });
     saveBtn.classList.add('disabled');
     editBtn.classList.remove('disabled');
 }

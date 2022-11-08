@@ -143,11 +143,36 @@ class Patient
         }
     }
 
-    public function edit()
+    public function edit(int $id)
     {
+        $pdo =  Database::getInstance();
+        $sql = "UPDATE `patients` SET 
+                `firstname` = :firstname,
+                `lastname` = :lastname,
+                `birthdate` = :birthdate,
+                `phone` = :phone,
+                `email` = :email
+                WHERE `id` = $id;
+                ";
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindValue(':firstname', $this->getFirstname());
+        $stmt->bindValue(':lastname', $this->getLastname());
+        $stmt->bindValue(':birthdate', $this->getBirthdate());
+        $stmt->bindValue(':phone', $this->getPhone());
+        $stmt->bindValue(':email', $this->getEmail());
+        if($stmt->execute()){
+            return intval($pdo->lastInsertId());
+        } else {
+            return false;
+        }
     }
-    public function delete()
-    {
+
+    public function delete(int $id):bool    
+    {        
+        $pdo = Database::getInstance();
+        $sql = "DELETE FROM `patients` WHERE `id` = $id;";
+        $stmt = $pdo->prepare($sql);
+        return $stmt->execute();
     }
 
     public static function emailExist(string $email): bool

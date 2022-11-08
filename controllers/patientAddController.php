@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     //===================== lastname : Nettoyage et validation =======================
-    $lastname = trim(filter_input(INPUT_POST, 'firstname', FILTER_SANITIZE_SPECIAL_CHARS));
+    $lastname = trim(filter_input(INPUT_POST, 'lastname', FILTER_SANITIZE_SPECIAL_CHARS));
     if (empty($lastname)) {
         $error["lastname"] = "Vous devez entrer un nom!!";
     } else {
@@ -91,7 +91,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // a non-insertion will not be detected by PDOException...
             //...$isAdded serve to UX output the Sucess/fail to create $patient on DBase
             // manage error 'user allready exists' && 'something went wrong
-            if($addedPatientId = $patient->add()){
+            $addedPatientId = $patient->add();
+            if($addedPatientId != 0){
                 header("Location: /patientprofile?id=$addedPatientId");
             } else {
                 $addedPatientId = ' creation de utilizateur impossible. call admin reseaux!';

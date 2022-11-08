@@ -8,20 +8,15 @@ require_once(__DIR__ . '/../models/Patient.php');
 // $isAddedPatient = '';
 
 // clean it 
-$patientProfileId = intval(filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT));
+$patientId = intval(filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT));
 
-$isEdited = intval(filter_input(INPUT_GET, 'editId', FILTER_SANITIZE_NUMBER_INT));
-var_dump($isEdited);
-// if($isEdited == 0) { $isEdited = false;}; 
 
-//get patient info
-$patient = Patient::getOne($patientProfileId);
 
 $error = [];
 $addedPatientId = '';
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && $isEdited == 5) {
-
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    var_dump($_POST); die;
     //===================== firstname : Nettoyage et validation =======================
     $firstname = trim(filter_input(INPUT_POST, 'firstname', FILTER_SANITIZE_SPECIAL_CHARS));
     if (empty($firstname)) {
@@ -38,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && $isEdited == 5) {
     }
 
     //===================== lastname : Nettoyage et validation =======================
-    $lastname = trim(filter_input(INPUT_POST, 'firstname', FILTER_SANITIZE_SPECIAL_CHARS));
+    $lastname = trim(filter_input(INPUT_POST, 'lastname', FILTER_SANITIZE_SPECIAL_CHARS));
     if (empty($lastname)) {
         $error["lastname"] = "Vous devez entrer un nom!!";
     } else {
@@ -65,7 +60,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && $isEdited == 5) {
         $error["birthdate"] = "La date de naissance est obligatoire!!";
     }
 
-    
     //===================== email : Nettoyage et validation =======================
     $email = trim(filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL));
     if (!empty($email)) {
@@ -96,17 +90,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && $isEdited == 5) {
         try {
             $patient = new Patient();
             $patient->setFirstname($firstname);
-            $patient->setLastName($lastname);
+            $patient->setLastname($lastname);
             $patient->setBirthdate($birthdate);
             $patient->setPhone($phone);
             $patient->setEmail($email);
             // a non-insertion will not be detected by PDOException...
             //...$isAdded serve to UX output the Sucess/fail to create $patient on DBase
             // manage error 'user allready exists' && 'something went wrong
-            if($addedPatientId = $patient->edit()){
+            $addedPatientId = $patient->edit($patientId);
+            if($addedPatientId != 0){
                 header("Location: /patientprofile?id=$addedPatientId");
             } else {
-                $addedPatientId = ' creation de utilizateur impossible. call admin reseaux!';
+                $error = ' creation de utilizateur impossible. call admin reseaux!';
             }
         } catch (PDOException $e) {
             $errorPdo = "ERREUR : " . $e->getMessage();
@@ -114,6 +109,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && $isEdited == 5) {
         };
     }
 }
+
+//get patient info
+$patientDisplay = Patient::getOne($patientId);
+
 
 include(__DIR__ . '/../views/templates/header.php');
 

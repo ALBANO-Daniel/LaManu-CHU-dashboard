@@ -22,8 +22,14 @@ document.addEventListener('DOMContentLoaded', function () {
 // handle the erase of the inputs error mensages from the Back-end...
 var inputs = document.querySelectorAll('.input-field')
 
-inputs.forEach((e) => {
+inputs.forEach(e => {
     e.childNodes[3].addEventListener("focus", ()=> {
         e.childNodes[7].innerText = '';
     })
+})
+//birthdate need unique eventListener AS modals interf. DOM childNodes 
+var calendarInput = document.getElementById("birthdate")
+var spanError = document.getElementById("birthdateError")
+calendarInput.addEventListener("focus", ()=> {
+    spanError.innerText = '';
 })

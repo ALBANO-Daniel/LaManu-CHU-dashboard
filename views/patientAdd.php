@@ -43,7 +43,7 @@ $edit = false;
                     <i class="material-icons prefix light-blue-text text-darken-4">date_range</i>
                     <input name="birthdate" id="birthdate" type="text" class="datepicker validate" value="<?= $birthdate ?? '' ?>" />
                     <label for="birthdate">Date Naissance</label>
-                    <span class="helper-text" data-error="date obligatoire" data-sucess=""><span class="error-text"><?= $error['birthdate'] ?? '' ?></span></span>
+                    <span class="helper-text" data-error="date obligatoire" data-sucess=""><span id="birthdateError" class="error-text"><?= $error['birthdate'] ?? '' ?></span></span>
                 </div>
             </div>
             <!-- Cellhpone/Fixe Input  -->
