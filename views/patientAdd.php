@@ -12,8 +12,9 @@ $edit = false;
     <br>
     <br>
     <div class="card">
-        <br>
-        <h1 class="center light-blue-text text-darken-4">Nouveaux Patient</h1>
+        <nav class=" light-blue darken-4">
+            <h2 class="center">NOUVEAUX PATIENT</h2>
+        </nav>
         <br>
         <!-- // example of action prop  "?status=delete&id=2" -->
         <form id="registerForm" class="container" action="<?= htmlspecialchars($_SERVER['PHP_SELF']) ?>" method="post" enctype="multipart/form-data">

@@ -16,7 +16,6 @@ $error = [];
 $addedPatientId = '';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    var_dump($_POST); die;
     //===================== firstname : Nettoyage et validation =======================
     $firstname = trim(filter_input(INPUT_POST, 'firstname', FILTER_SANITIZE_SPECIAL_CHARS));
     if (empty($firstname)) {

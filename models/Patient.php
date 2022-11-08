@@ -104,15 +104,14 @@ class Patient
         return intval($stmt->count);
     }
 
-    public static function getAll(int $page):array
+    public static function getAll(int $currentPage, int $patientsPerPage):array
     {
         // limit by 8-12 per page, in request sql with offset -> 
         $pdo = Database::getInstance();
-        $patientPerPage = 8;
-        $offset = $page * $patientPerPage;
+        $offset = $currentPage * $patientsPerPage;
         $sql = "SELECT `id`, `firstname`, `lastname`, `birthdate`, `phone`, `email` 
         FROM `patients`
-        LIMIT 8 OFFSET $offset;";
+        LIMIT $patientsPerPage OFFSET $offset;";
         $stmt = $pdo->query($sql);
         return $stmt->fetchAll();
     }

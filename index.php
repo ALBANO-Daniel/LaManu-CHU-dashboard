@@ -6,3 +6,5 @@
 // var_dump($sql);
 
 header('Location: /home');
+
+// header('Location: /pagination ');

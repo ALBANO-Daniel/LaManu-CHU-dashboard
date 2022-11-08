@@ -1,6 +1,9 @@
 <main class="container">
     <div class="container">
-        <h1 class="row">Nouvelle Rendez-vous :</h1>
+        <nav class=" light-blue darken-4">
+            <h2 class="center">Nouvelle Rendez-vous :</h2>
+        </nav>
+        <br>
         <ul class="row">
             <li class="col s6">Name</li>
             <li class="col s6">Surname</li>
