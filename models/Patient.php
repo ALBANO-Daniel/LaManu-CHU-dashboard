@@ -160,7 +160,7 @@ class Patient
         $stmt->bindValue(':phone', $this->getPhone());
         $stmt->bindValue(':email', $this->getEmail());
         if($stmt->execute()){
-            return intval($pdo->lastInsertId());
+            return $id;
         } else {
             return false;
         }

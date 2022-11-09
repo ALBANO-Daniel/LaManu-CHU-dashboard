@@ -6,6 +6,7 @@
             <h2 class="center">NOUVEAUX PATIENT</h2>
         </nav>
         <br>
+        <?php if(SessionFlash::exist()){ ?><p><?=SessionFlash::get()?></p><?php }?>
         <!-- // example of action prop  "?status=delete&id=2" -->
         <form id="registerForm" class="container" action="<?= htmlspecialchars($_SERVER['PHP_SELF']) ?>" method="post" enctype="multipart/form-data">
             <!-- output test errors    -->

@@ -1,6 +1,10 @@
 <?php
 // Initialisation des constantes permettant la connexion à la bdd
 // dsn = Data Source Name
+session_start();
+require_once(__DIR__ . '/../helpers/SessionFlash.php');
+// add class of session flash..
+
 
 define('DSN', 'mysql:host=localhost;dbname=zzzhospital;charset=utf8');
 define('LOGIN', 'zzz');

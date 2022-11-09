@@ -2,16 +2,13 @@
     <br>
     <br>
     <div class="card">
+        <nav class=" light-blue darken-4">
+            <h2 class="center">PROFIL PATIENT</h2>
+        </nav>
         <br>
-        <h3 class="center light-blue-text text-darken-4">Patient Profile</h3>
-        <br>
+        <?php if (SessionFlash::exist()) { ?><p><?= SessionFlash::get() ?></p><?php } ?>
         <!-- // example of action prop  "?status=delete&id=2" -->
         <form id="registerForm" class="container" action="?id=<?= $patientId ?>" method="post" enctype="multipart/form-data">
-            <!-- output test errors    -->
-            <div class="row center">
-                <p>Error PDO : <span class="error-text"></span><?= $errorPdo ?? '' ?></p>
-                <!-- <p>Error Insertion(add) Patient : <span class="error-text"> $isEdited ? 'patient edited' : 'patient not edited' ?></span></p> -->
-            </div>
             <!-- Name input  -->
             <div class="row">
                 <div class="input-field col s12 m6">
