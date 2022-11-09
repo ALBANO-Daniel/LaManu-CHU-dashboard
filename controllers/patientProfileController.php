@@ -82,7 +82,7 @@ try {
             $error["phone"] = "Le telephone est obligatoire!!";
         }
 
-        //email, add a test to test if user allready registered  if Patient::emailExist($email) --> $error
+        if(Patient::emailExist($email)) $error = 'email existant'; 
 
         // add a new 'if' to test error
 
@@ -105,7 +105,7 @@ try {
                 SessionFlash::set('Le patient n\'a pas etais edite');
             }
         }
-    }
+    } 
 } catch (\Throwable $th) {
     SessionFlash::set($th);
     header("Location: /error404"); exit;
@@ -113,6 +113,9 @@ try {
 
 //get patient info
 $patientDisplay = Patient::getOne($patientId);
+
+//get all RDV to this patient ID
+// $patientRdvDisplay = Appointments::getAllFromId($patientId);
 
 
 include(__DIR__ . '/../views/templates/header.php');

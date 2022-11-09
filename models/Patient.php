@@ -14,7 +14,6 @@ class Patient
     private string $_firstname;
     private string $_lastname;
     private string $_phone;
-    // birthdate not a DATE type ??????? 
     private string $_birthdate;
     private string $_email;
 
@@ -161,7 +160,7 @@ class Patient
         $stmt->bindValue(':email', $this->getEmail());
         if($stmt->execute()){
             return $id;
-        } else {
+        } else {SessionFlash::set('Le patient a bien etais edite');
             return false;
         }
     }
@@ -187,8 +186,12 @@ class Patient
                 if (empty($stmt->fetch())) {
                     return false;
                 } else {
+                    SessionFlash::set('Le email est deja enregistrer pour une Patient.');
                     return true;
                 };
+            } else {
+                SessionFlash::set('Impossible des faire Connexion a la base de Donnes, try again or call support.');
+                return true;
             }
             //$pdo = new PDO(DNS,login,pass);
             //$pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);

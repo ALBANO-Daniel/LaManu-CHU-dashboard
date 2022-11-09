@@ -78,9 +78,7 @@ try {
             $error["phone"] = "Le telephone est obligatoire!!";
         }
 
-        //email, add a test to test if user allready registered  if Patient::emailExist($email) --> $error
-
-        // add a new 'if' to test error
+        if(Patient::emailExist($email)) $error = 'email existant'; 
 
         if (empty($error)) {
             $patient = new Patient();
