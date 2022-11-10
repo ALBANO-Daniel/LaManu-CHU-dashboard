@@ -2,6 +2,7 @@
 var inputs = document.querySelectorAll('input');
 var editBtn = document.getElementById('editBtn');
 var saveBtn = document.getElementById('saveBtn');
+var deleteBtn = document.getElementById('deletePatientBtn');
 
 editBtn.onclick = () => {
     inputs.forEach(input => {
@@ -20,3 +21,7 @@ saveBtn.onclick = () => {
     editBtn.classList.remove('disabled');
 }
 
+document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.modal');
+    var instances = M.Modal.init(elems);
+});

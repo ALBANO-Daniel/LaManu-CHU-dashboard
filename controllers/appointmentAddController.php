@@ -8,6 +8,10 @@ if(empty($_GET)){
     header('location: /patientlist'); exit;
 }
 
+$patientId = intval(filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT));
+
+$patient = Patient::getOne($patientId);
+
 try {
     $error = [];
     $addedPatientId = '';
