@@ -6,7 +6,21 @@
             <h2 class="center">NOUVEAUX PATIENT</h2>
         </nav>
         <br>
-        <?php if(SessionFlash::exist()){ ?><p><?=SessionFlash::get()?></p><?php }?>
+        <!-- error/sucess output  -->
+    <?php
+    if(SessionFlash::exist()){
+        $msg = SessionFlash::get();
+        if ($msg[0] == true) { ?>
+            <p class='green'>
+            <?php
+        } else { ?>
+            <p class='red'>
+            <?php
+        }
+        print_r($msg[1]) ?>
+            </p>
+        <?php
+    }?>
         <!-- // example of action prop  "?status=delete&id=2" -->
         <form id="registerForm" class="container" action="<?= htmlspecialchars($_SERVER['PHP_SELF']) ?>" method="post" enctype="multipart/form-data">
             <!-- output test errors    -->

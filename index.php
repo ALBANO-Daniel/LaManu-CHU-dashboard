@@ -5,6 +5,6 @@
 // $sql = "SELECT * FROM `patients`";
 // var_dump($sql);
 
-header('Location: /home');
+header('Location: /');
 
 // header('Location: /pagination ');

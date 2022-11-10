@@ -1,5 +1,20 @@
 <main class="container">
     <br>
+    <!-- error/sucess output  -->
+    <?php
+    if(SessionFlash::exist()){
+        $msg = SessionFlash::get();
+        if ($msg[0] == true) { ?>
+            <p class='green'>
+            <?php
+        } else { ?>
+            <p class='red'>
+            <?php
+        }
+        print_r($msg[1]) ?>
+            </p>
+        <?php
+    }?>
     <br>
     <div class="row">
         <div class="col s12 m6">

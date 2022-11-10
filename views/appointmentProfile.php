@@ -1,4 +1,20 @@
 <main class="container">
+    <!-- error/sucess output  -->
+    <?php
+    if(SessionFlash::exist()){
+        $msg = SessionFlash::get();
+        if ($msg[0] == true) { ?>
+            <p class='green'>
+            <?php
+        } else { ?>
+            <p class='red'>
+            <?php
+        }
+        print_r($msg[1]) ?>
+            </p>
+        <?php
+    }?>
+    
     <div class="container">
         <nav class=" light-blue darken-4">
             <h2 class="center">Nouvelle Rendez-vous :</h2>

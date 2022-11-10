@@ -2,6 +2,7 @@
 
 require_once(__DIR__ . '/../models/Patient.php');
 
+
 // set-up how many lines/elements to be showed per page
 $elementsPerPage = 8;
 
@@ -10,6 +11,8 @@ $pagesPerPagination = 5;
 
 $halfPagesPerPagination = intval($pagesPerPagination / 2);
 $halfUpPagesPerPagination = ceil($pagesPerPagination / 2);
+
+
 
 // get number of elements  $patientListPagesTotal 
 $totalElements = Patient::getTotalNumberOf();
@@ -21,7 +24,8 @@ if ($totalElements % $elementsPerPage == 0) {
 }
 
 // show actual page 
-$patientListPagesActual = $_GET['page'] ?? 0;
+$page = intval(filter_input(INPUT_GET, 'page', FILTER_SANITIZE_NUMBER_INT));
+$patientListPagesActual = $page ?? 0;
 // $currentPage = $_GET['page'] ?? 0;
 
 // get all patients info for the actual page

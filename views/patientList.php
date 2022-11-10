@@ -1,5 +1,16 @@
 <main class="container">
     <br>
+    <!-- error/sucess output  -->
+    <?php if (SessionFlash::exist()){
+            $msg = SessionFlash::get();
+            if($msg[0] == true){ ?>
+                <p class='green'>
+            <?php } else { ?>
+                <p class='red'>
+            <?php }
+            print_r($msg[1])?>
+                </p> 
+        <?php } ?>
     <br>
     <div class="card center">
         <section class="listPatient">
@@ -12,7 +23,7 @@
             foreach ($patientList as $patient) { ?>
                 <div class="card row">
                     <div class="col s11 m5"><?= $patient->firstname ?></div><span class="s1 m1"><a href="/patientprofile?id=<?= $patient->id ?>"><i class="material-icons">person</i></a></span>
-                    <div class="col s11 m5"><?= strtoupper($patient->lastname) ?></div><span class="s1 m1"><a href="/?deleteid=<?= $patient->id ?>"><i class="material-icons red-text">delete_forever</i></a></span>
+                    <div class="col s11 m5"><?= strtoupper($patient->lastname) ?></div><span class="s1 m1"><a href="/patientdelete?deleteid=<?= $patient->id ?>"><i class="material-icons red-text">delete_forever</i></a></span>
                 </div>
             <?php } ?>
             <!-- pagination list  -->
@@ -67,9 +78,9 @@
                 <?php } ?>
 
                 <?php if($patientListPagesActual != $totalPages){ ?>
-                    <li class="waves-effect"><a href="?page=<?= $currentPage + 1 ?>"><i class="material-icons">chevron_right</i></a></li>
+                    <li class="waves-effect"><a href="?page=<?= $patientListPagesActual + 1 ?>"><i class="material-icons">chevron_right</i></a></li>
                 <?php } else { ?>
-                    <li class="waves-effect hidden"><a href="?page=<?= $currentPage + 1 ?>"><i class="material-icons">chevron_right</i></a></li>
+                    <li class="waves-effect hidden"><a href="?page=<?= $patientListPagesActual + 1 ?>"><i class="material-icons">chevron_right</i></a></li>
                 <?php } ?>
             </ul>
 

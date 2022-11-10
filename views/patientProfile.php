@@ -6,7 +6,23 @@
             <h2 class="center">PROFIL PATIENT</h2>
         </nav>
         <br>
-        <?php if (SessionFlash::exist()) { ?><p><?= SessionFlash::get() ?></p><?php } ?>
+        
+    <!-- error/sucess output  -->
+    <?php
+    if(SessionFlash::exist()){
+        $msg = SessionFlash::get();
+        if ($msg[0] == true) { ?>
+            <p class='green'>
+            <?php
+        } else { ?>
+            <p class='red'>
+            <?php
+        }
+        print_r($msg[1]) ?>
+            </p>
+        <?php
+    }?>
+
         <!-- // example of action prop  "?status=delete&id=2" -->
         <form id="registerForm" class="container" action="?id=<?= $patientId ?>" method="post" enctype="multipart/form-data">
             <!-- Name input  -->
@@ -68,8 +84,29 @@
                     </button>
                 </div>
             </div>
+            <div class="row white-text">
+                <div class="col m4"></div>
+                <div class="col s12 m4">
+                    <a href="/patientdelete?deleteid=<?= $patientId ?>" class="btn waves-effect waves-light red darken-4"><i class="material-icons right hide-on-small-only">delete_forever</i>DELETE</a>
+                </div>
+                <div class="col m4"></div>
+            </div>
         </form>
         <br>
     </div>
+    <section class="card">
+        <nav class=" light-blue darken-4">
+            <h2 class="center">PATIENT RENDEZ-VOUS</h2>
+        </nav>
+        <br>
+        <!-- patient list  -->
+        <?php
+            foreach ($appointmentList as $appointment) { ?>
+                <div class="card row">
+                    <div class="col s11 m5"><?= $appointment->dateHour ?></div><span class="s1 m1"><a href="/patientprofile?id=<?= $patient->id ?>"><i class="material-icons">person</i></a></span>
+                    <div class="col s11 m5"><?= strtoupper($appointment->doctorName) ?></div><span class="s1 m1"><a href="/patientdelete?deleteid=<?= $patient->id ?>"><i class="material-icons red-text">delete_forever</i></a></span>
+                </div>
+            <?php } ?>
+    </section>
 
 </main>

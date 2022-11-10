@@ -21,7 +21,7 @@ class Patient
     public function __construct()
     {
     }
-
+    // GETTER/SETTER
     public function setId(int $id): void
     {
         $this->_id = $id;
@@ -75,45 +75,7 @@ class Patient
     {
         return $this->_email;
     }
-
-    public static function findId()
-    {
-        // $pdo = Database::getInstance();
-        // var_dump( intval($pdo->lastInsertId()) ); die;
-        // $pdo = Database::getInstance();
-        // $sql = "SELECT `id` FROM `patients` WHERE `email` = '$findEmail';";
-        // $stmt = $pdo->query($sql);
-        // return intval($stmt->fetch());
-    }
-
-    public static function getOne(int $id)
-    {
-        $pdo = Database::getInstance();
-        $sql = "SELECT * FROM `patients` WHERE `ID` = $id ;";
-        $stmt = $pdo->query($sql);
-        return $stmt->fetch();
-    }
-    
-    public static function getTotalNumberOf()
-    {
-        $pdo = Database::getInstance();
-        $sql = 'SELECT COUNT(*) AS count FROM `patients`;';
-        $stmt = $pdo->query($sql);
-        $stmt = $stmt->fetch();
-        return intval($stmt->count);
-    }
-
-    public static function getAll(int $currentPage, int $patientsPerPage):array
-    {
-        // limit by 8-12 per page, in request sql with offset -> 
-        $pdo = Database::getInstance();
-        $offset = $currentPage * $patientsPerPage;
-        $sql = "SELECT `id`, `firstname`, `lastname`, `birthdate`, `phone`, `email` 
-        FROM `patients`
-        LIMIT $patientsPerPage OFFSET $offset;";
-        $stmt = $pdo->query($sql);
-        return $stmt->fetchAll();
-    }
+    // END -- GETTER/SETTER
 
     public function add()
     {
@@ -160,13 +122,13 @@ class Patient
         $stmt->bindValue(':email', $this->getEmail());
         if($stmt->execute()){
             return $id;
-        } else {SessionFlash::set('Le patient a bien etais edite');
+        } else {SessionFlash::set(true,'Le patient a bien etais edite');
             return false;
         }
     }
 
-    public function delete(int $id):bool    
-    {        
+    public static function delete(int $id):bool    
+    {
         $pdo = Database::getInstance();
         $sql = "DELETE FROM `patients` WHERE `id` = $id;";
         $stmt = $pdo->prepare($sql);
@@ -178,7 +140,6 @@ class Patient
         try {
             $pdo = Database::getInstance();
             $sql = 'SELECT `patients`.`id` FROM `patients` WHERE `email` = :email';
-
             $stmt = $pdo->prepare($sql);  // return a object of the class PDOStatement..   statment handle
             $stmt->bindValue(':email', $email);
             $isTrueStmt = $stmt->execute();
@@ -186,11 +147,11 @@ class Patient
                 if (empty($stmt->fetch())) {
                     return false;
                 } else {
-                    SessionFlash::set('Le email est deja enregistrer pour une Patient.');
+                    SessionFlash::set(false,'Le email est deja enregistrer pour une Patient.');
                     return true;
                 };
             } else {
-                SessionFlash::set('Impossible des faire Connexion a la base de Donnes, try again or call support.');
+                SessionFlash::set(false,'Impossible des faire Connexion a la base de Donnes, try again or call support.');
                 return true;
             }
             //$pdo = new PDO(DNS,login,pass);
@@ -199,5 +160,34 @@ class Patient
         } catch (PDOException $e) {
             echo $e->getMessage();
         }
+    }
+    
+    public static function getOne(int $id)
+    {
+        $pdo = Database::getInstance();
+        $sql = "SELECT * FROM `patients` WHERE `ID` = $id ;";
+        $stmt = $pdo->query($sql);
+        return $stmt->fetch();
+    }
+    
+    public static function getTotalNumberOf()
+    {
+        $pdo = Database::getInstance();
+        $sql = 'SELECT COUNT(*) AS count FROM `patients`;';
+        $stmt = $pdo->query($sql);
+        $stmt = $stmt->fetch();
+        return intval($stmt->count);
+    }
+
+    public static function getAll(int $currentPage, int $patientsPerPage):array
+    {
+        // limit by 8-12 per page, in request sql with offset -> 
+        $pdo = Database::getInstance();
+        $offset = $currentPage * $patientsPerPage;
+        $sql = "SELECT `id`, `firstname`, `lastname`, `birthdate`, `phone`, `email` 
+        FROM `patients`
+        LIMIT $patientsPerPage OFFSET $offset;";
+        $stmt = $pdo->query($sql);
+        return $stmt->fetchAll();
     }
 }

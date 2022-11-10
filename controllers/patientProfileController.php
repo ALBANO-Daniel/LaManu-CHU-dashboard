@@ -98,16 +98,16 @@ try {
             // manage error 'user allready exists' && 'something went wrong
             $addedPatientId = $patient->edit($patientId);
             if ($addedPatientId != false) {
-                SessionFlash::set('Le patient a bien etais edite');
+                SessionFlash::set(true,'Le patient a bien etais edite');
                 // header("Location: /patientprofile?id=$addedPatientId");
                 // exit;
             } else {
-                SessionFlash::set('Le patient n\'a pas etais edite');
+                SessionFlash::set(false,'Le patient n\'a pas etais edite');
             }
         }
     } 
 } catch (\Throwable $th) {
-    SessionFlash::set($th);
+    SessionFlash::set(false,$th);
     header("Location: /error404"); exit;
 }
 

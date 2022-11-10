@@ -92,16 +92,16 @@ try {
             // manage error 'user allready exists' && 'something went wrong
             $addedPatientId = $patient->add();
             if ($addedPatientId != false) {
-                SessionFlash::set('Le patient a bien etais ajoute');
+                SessionFlash::set(true,'Le patient a bien etais ajoute');
                 header("Location: /patientprofile?id=$addedPatientId");
                 exit;
             } else {
-                SessionFlash::set('Le patient n\'as pas etais ajoute!');
+                SessionFlash::set(false,'Le patient n\'as pas etais ajoute!');
             }
         }
     }
 } catch (\Throwable $th) {
-    SessionFlash::set($th);
+    SessionFlash::set(false,$th);
     header("Location: /error404"); exit;
 }
 
@@ -110,6 +110,6 @@ include(__DIR__ . '/../views/templates/header.php');
 
 include(__DIR__ . '/../views/templates/navBar.php');
 
-include(__DIR__ . '/../views/patientAdd.php');
+include(__DIR__ . '/../views/appointmentAdd.php');
 
 include(__DIR__ . '/../views/templates/footer.php');
