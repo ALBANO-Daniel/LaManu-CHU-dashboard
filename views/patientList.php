@@ -19,6 +19,8 @@
             <ul class="row pagination">
             <?php if($patientListPagesActual != 0){ ?>
                 <li class="waves-effect"><a href="?page=<?= $patientListPagesActual - 1 ?>"><i class="material-icons">chevron_left</i></a></li>
+                <?php } else { ?>
+                <li class="waves-effect hidden"><a href="?page=<?= $patientListPagesActual - 1 ?>"><i class="material-icons">chevron_left</i></a></li>
                 <?php } ?>
                 
                 <?php if( $totalPages <= $pagesPerPagination){
@@ -66,6 +68,8 @@
 
                 <?php if($patientListPagesActual != $totalPages){ ?>
                     <li class="waves-effect"><a href="?page=<?= $currentPage + 1 ?>"><i class="material-icons">chevron_right</i></a></li>
+                <?php } else { ?>
+                    <li class="waves-effect hidden"><a href="?page=<?= $currentPage + 1 ?>"><i class="material-icons">chevron_right</i></a></li>
                 <?php } ?>
             </ul>
 
