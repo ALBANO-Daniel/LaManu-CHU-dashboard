@@ -4,14 +4,14 @@
     <?php if (SessionFlash::exist()){
             $msg = SessionFlash::get();
             if($msg[0] == true){ ?>
-                <p class='green'>
+                <p class='green center white-text'>
             <?php } else { ?>
-                <p class='red'>
+                <p class='red center white-text'>
             <?php }
             print_r($msg[1])?>
                 </p> 
         <?php } ?>
-    <br>
+    <!-- main card  -->
     <div class="card center">
         <section class="listPatient">
             <nav class=" light-blue darken-4">
@@ -37,14 +37,14 @@
                 <?php if( $totalPages <= $pagesPerPagination){
                     for($page = 0; $page <= $totalPages; $page++){ ?>
                         <li class="<?= $patientListPagesActual == $page ? 'active' : 'waves-effect' ?>">
-                            <a href="?page=<?= $page ?>"><?= $page ?></a>
+                            <a href="?page=<?= $page ?>"><?= $page+1 ?></a>
                         </li>
                     <?php } ?>
                 <?php } else if ($patientListPagesActual < $pagesPerPagination - 1) {
 
                     for ($page = 0; $page < $pagesPerPagination; $page++) { ?>
                         <li class="<?= $patientListPagesActual == $page ? 'active' : 'waves-effect' ?>">
-                            <a href="?page=<?= $page ?>"><?= $page ?></a>
+                            <a href="?page=<?= $page ?>"><?= $page+1 ?></a>
 
                         </li>
                     <?php } ?>
@@ -58,7 +58,7 @@
 
                     <?php for ($page = $patientListPagesActual - $halfPagesPerPagination; $page <= $patientListPagesActual + $halfPagesPerPagination; $page++) { ?>
                         <li class="<?= $patientListPagesActual == $page ? 'active' : 'waves-effect' ?>">
-                            <a href="?page=<?= $page ?>"><?= $page ?></a>
+                            <a href="?page=<?= $page ?>"><?= $page+1 ?></a>
                         </li>
                     <?php } ?>
 
@@ -71,7 +71,7 @@
 
                     <?php for ($page = $currentPage - $halfPagesPerPagination; $page <= $totalPages; $page++) { ?>
                         <li class="<?= $currentPage == $page ? 'active' : 'waves-effect' ?>">
-                            <a href="?page=<?= $page ?>"><?= $page ?></a>
+                            <a href="?page=<?= $page ?>"><?= $page+1 ?></a>
                         </li>
                     <?php } ?>
 

@@ -11,10 +11,10 @@
     if(SessionFlash::exist()){
         $msg = SessionFlash::get();
         if ($msg[0] == true) { ?>
-            <p class='green'>
+            <p class='green center white-text'>
             <?php
         } else { ?>
-            <p class='red'>
+            <p class='red center white-text'>
             <?php
         }
         print_r($msg[1]) ?>
@@ -23,11 +23,6 @@
     }?>
         <!-- // example of action prop  "?status=delete&id=2" -->
         <form id="registerForm" class="container" action="<?= htmlspecialchars($_SERVER['PHP_SELF']) ?>" method="post" enctype="multipart/form-data">
-            <!-- output test errors    -->
-            <div class="row">
-                <p>Error PDO : <span class="error-text"></span><?= $errorPdo ?? '' ?></p>
-                <p>Error Insertion(add) Patient : <span class="error-text"><?= $addedPatientId ? 'patient added' : 'patient not added' ?></span></p>
-            </div>
             <!-- Name input  -->
             <div class="row">
                 <div class="input-field col s12 m6">
