@@ -26,6 +26,7 @@
                     <div class="col s11 m5"><?= strtoupper($patient->lastname) ?></div><span class="s1 m1"><a href="/patientdelete?deleteid=<?= $patient->id ?>"><i class="material-icons red-text">delete_forever</i></a></span>
                 </div>
             <?php } ?>
+            
             <!-- pagination list  -->
             <ul class="row pagination">
             <?php if($patientListPagesActual != 0){ ?>
