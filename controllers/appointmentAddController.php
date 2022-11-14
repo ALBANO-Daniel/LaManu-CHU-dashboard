@@ -2,6 +2,7 @@
 require_once(__DIR__ . '/../config/config.php');
 require_once(__DIR__ . '/../helpers/functions/Database.php');
 require_once(__DIR__ . '/../models/Appointment.php');
+require_once(__DIR__ . '/../models/Patient.php');
 
 if(empty($_GET)){
     SessionFlash::set(false,'Merci de choisir une patient pour aditioner une rendez-vous.');
@@ -17,27 +18,26 @@ try {
     $addedPatientId = '';
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-        //===================== firstname : Nettoyage et validation =======================
-        $firstname = trim(filter_input(INPUT_POST, 'firstname', FILTER_SANITIZE_SPECIAL_CHARS));
-        if (empty($firstname)) {
-            $error['firstname'] = "Vous devez entrer un prenom!!";
-        } else {
-            $isOk = filter_var($firstname, FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => '/' . REGEX_NO_NUMBER . '/')));
-            if (!$isOk) {
-                $error['firstname'] = 'Le prenom n\'est pas au bon format!!';
-            } else {
-                if (strlen($firstname) <= 1 || strlen($firstname) >= 70) {
-                    $error['firstname'] = "La longueur du prenom n'est pas bon";
-                }
+        //===================== date : Nettoyage et validation =======================
+        $date = trim(filter_input(INPUT_POST, 'date', FILTER_SANITIZE_SPECIAL_CHARS));
+
+
+        if (!empty($birthdate)) {
+            $test = filter_var($birthdate, FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => '/' . REGEX_DATE . '/')));
+            if (!$test) {
+                $error["birthdate"] = "La date n'est pas au bon format!!";
             }
+        } else {
+            $error["birthdate"] = "La date de naissance est obligatoire!!";
         }
 
-        //===================== lastname : Nettoyage et validation =======================
-        $lastname = trim(filter_input(INPUT_POST, 'lastname', FILTER_SANITIZE_SPECIAL_CHARS));
-        if (empty($lastname)) {
-            $error["lastname"] = "Vous devez entrer un nom!!";
+        //===================== hour : Nettoyage et validation =======================
+        $hour = trim(filter_input(INPUT_POST, 'hour', FILTER_SANITIZE_SPECIAL_CHARS));
+
+        if (empty($hour)) {
+            $error["hour"] = "Vous devez choisir une horaire!";
         } else {
-            $isOk = filter_var($lastname, FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => '/' . REGEX_NO_NUMBER . '/')));
+            $isOk = filter_var($hour, FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => '/' . REGEX_HOUR . '/')));
             if (!$isOk) {
                 $error["lastname"] = "Le nom n'est pas au bon format!!";
             } else {
@@ -46,7 +46,20 @@ try {
                 }
             }
         }
+
+        $dateHour = $date . ' ' . $hour . ':00';
+
+        $appointment = new Appointment;
+        $appointment->setDateHour($dateHour);
+        $appointment->setIdPatient($patientId);
+        $isAdded = $appointment->add();
+        if ($isAdded != false) {
+            SessionFlash::set(true,'Le rendez-vous a bien etais ajoute');
+        } else {
+            SessionFlash::set(false,'Le rendez-vous n\'as pas etais ajoute!');
+        }
     }
+
 } catch (\Throwable $th) {
     SessionFlash::set(false,$th);
     header("Location: /error404"); exit;

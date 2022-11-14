@@ -74,7 +74,7 @@
                     <div class="col s12 m4">
                         <a id="editBtn" class="btn waves-effect waves-light light-blue darken-4">
                             <i class="material-icons right hide-on-small-only">create</i>
-                            Edite
+                            Editer
                         </a>
                     </div>
                     <div class="col s12 m4 ">
@@ -101,7 +101,6 @@
                             </div>
                             <div class="modal-footer">
                                 <a id="deletePatientBtn" class="col s12 m6 btn waves-effect waves-light red darken-4" href="/patientdelete?deleteid=<?= $patientId ?>">
-                                <i class="material-icons right hide-on-small-only">delete_forever</i>
                                 DELETE
                             </a>
                                 <a href="#registerForm" class="col s12 m6 modal-close waves-effect waves-green btn">CANCEL</a>
@@ -119,18 +118,23 @@
             <h2 class="center">PATIENT RENDEZ-VOUS</h2>
         </nav>
         <br>
+        <div class="row">
+            <div class="col m4"></div>
+            <div class="col s12 m4">
+                <a class="btn waves-effect waves-light light-blue darken-4" href="/appointmentadd?id=<?=$patientId ?>"><i class="material-icons left hide-on-small-only">date_range</i>Nouveaux</a>
+            </div>
+            <div class="col m4"></div>
+        </div>
         <!-- patient list  -->
         <?php
         foreach ($appointmentList as $appointment) { ?>
             <div class="card row">
-                <div class="col s11 m5"><?= $appointment->dateHour ?></div><span class="s1 m1"><a href="/patientprofile?id=<?= $patient->id ?>"><i class="material-icons">person</i></a></span>
-                <div class="col s11 m5"><?= strtoupper($appointment->doctorName) ?></div><span class="s1 m1"><a href="/patientdelete?deleteid=<?= $patient->id ?>"><i class="material-icons red-text">delete_forever</i></a></span>
+                <div class="col s11 m5"><?= $appointment->dateHour ?></div><span class="s1 m1"><a href="/patientprofile?id=<?= $patientId ?>"><i class="material-icons">person</i></a></span>
+                <div class="col s11 m5"><?= strtoupper($appointment->doctorName) ?></div><span class="s1 m1"><a href="/patientdelete?deleteid=<?= $patientId ?>"><i class="material-icons red-text">delete_forever</i></a></span>
             </div>
         <?php } ?>
 
-        <div class="col s12 m4">
-            <a class="btn waves-effect waves-light light-blue darken-4"><i class="material-icons left hide-on-small-only">date_range</i>RDV</a>
-        </div>
+        
     </section>
 
 </main>

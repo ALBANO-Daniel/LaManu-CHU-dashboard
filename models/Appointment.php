@@ -35,7 +35,7 @@ class Appointment
         $this->_id = $idPatient;
     }
 
-    public function getIdPatients():int
+    public function getIdPatient():int
     {
         return $this->_idPatient;
     }
@@ -49,12 +49,12 @@ class Appointment
     public function add(): bool
     {
         $pdo = Database::getInstance();
-        $sql = 'INSERT INTO `appointments` (`datehour`, `idpatients`) 
-                    VALUES (:datehour, :idpatients);';
+        $sql = 'INSERT INTO `appointments` (`datehour`, `idpatient`) 
+                    VALUES (:datehour, :idpatient);';
 
         $stmt = $pdo->prepare($sql);
         $stmt->bindValue(':datehour', $this->getDateHour());
-        $stmt->bindValue(':idpatients', $this->getIdPatients(), PDO::PARAM_INT);
+        $stmt->bindValue(':idpatient', $this->getIdPatient(), PDO::PARAM_INT);
         if ($stmt->execute()) {
             return ($stmt->rowCount() > 0) ? true : false;
         }

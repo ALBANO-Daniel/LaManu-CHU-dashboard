@@ -15,7 +15,9 @@ body {
 nav ul{
     overflow: hidden !important;
 }
-
+.modal{
+    overflow: hidden;
+}
 
 /* ----------------------- CUSTOM VARS --------------------------  */
 .unset{
