@@ -45,6 +45,9 @@ nav ul{
 
 /* ---------------------- END CUSTOM VARS -------------------------- */
 
+
+/* ---------------------- GLOBAL COMPONENTS CSS -------------------------- */
+
 /* INPUT FIELDS TEXT  */
 :focus{
     border-bottom: 1px solid #01579b !important;
@@ -61,7 +64,6 @@ button:focus{
 .datepicker-date-display{
     background-color: #01579b !important;
 }
-
 .datepicker-table td.is-selected{
     background-color: #01579b !important;
     color: white !important;
@@ -71,4 +73,12 @@ button:focus{
 }
 .confirmation-btns button{
     color: #01579b !important;
+}
+
+/* APPOINTMENT/PATIENT LISTS  */
+.pagination li.active{
+    background-color: #01579b;
+}
+.emptyListItem{
+    height: 26.5px;
 }

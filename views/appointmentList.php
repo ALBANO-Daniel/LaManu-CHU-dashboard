@@ -36,7 +36,11 @@
                         <div class="col s11 m5"><?= $appointment->firstname . ' ' . strtoupper($appointment->lastname) ?></div><span class="s1 m1"><a href="/patientprofile?id=<?= $appointment->idpatient ?>"><i class="material-icons">person</i></a></span>
                         <div class="col s11 m5"><?= $date .' -- '. $time ?></div><span class="s1 m1"><a href="/appointmentdelete?id=<?= $appointment->id ?>"><i class="material-icons red-text">delete_forever</i></a></span>
                     </div>
-                <?php } ?>
+                <?php } 
+                $i = count($appointmentList);
+                for($i ; $i < $elementsPerPage; $i++ ){ ?>
+                    <div class="row emptyListItem"></div>
+        <?php } ?> 
 
                 <!-- pagination list  -->
                 <ul class="row pagination">

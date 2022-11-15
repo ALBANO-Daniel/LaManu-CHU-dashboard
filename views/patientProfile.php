@@ -137,7 +137,14 @@
                     <div class="card center row">
                         <div class="col s11"><?= $date .' -- '. $time ?></div><span class="s1"><a href="/appointmentdelete?id=<?= $appointment->id ?>"><i class="material-icons red-text">delete_forever</i></a></span>
                     </div>
-                <?php } ?>
+                <?php } 
+                $i = count($appointmentList);
+                for($i ; $i < $elementsPerPage; $i++ ){ ?>
+                    <div class="row emptyListItem"></div>
+        <?php } ?> 
+
+
+
                 <!-- pagination list  -->
                 <ul class="row pagination center">
                     <?php if ($appointmentListPagesActual != 0) { ?>
