@@ -13,6 +13,8 @@ RewriteRule ^patientadd$ controllers/patientAddController.php
 RewriteRule ^patientprofile$ controllers/patientProfileController.php
 RewriteRule ^patientdelete$ controllers/patientDeleteController.php
 
+RewriteRule ^appointmentandpatientadd$ controllers/appointmentAndPatientAddController.php
+
 RewriteRule ^appointmentlist$ controllers/appointmentListController.php
 RewriteRule ^appointmentadd$ controllers/appointmentAddController.php
 RewriteRule ^appointmentprofile$ controllers/appointmentProfileController.php

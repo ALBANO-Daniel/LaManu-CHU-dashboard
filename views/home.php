@@ -28,7 +28,8 @@
             </a>
         </div>
         <div class="col s12 m6">
-            <a class="white-text" href='/appointmentadd'>
+            <!-- <a class="white-text" href='/appointmentadd'> -->
+            <a class="white-text" href='/appointmentandpatientadd'>
                 <div class="card light-blue darken-4">
                     <div class="center card-content">
                         <span class="card-title"><i class="large material-icons">access_time</i></span>
