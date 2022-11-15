@@ -22,7 +22,6 @@ try {
         //===================== date : Nettoyage et validation =======================
         $date = trim(filter_input(INPUT_POST, 'date', FILTER_SANITIZE_SPECIAL_CHARS));
 
-
         if (!empty($date)) {
             $date = filter_var($date, FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => '/' . REGEX_DATE . '/')));
             if (!$date) {
@@ -47,15 +46,24 @@ try {
         //format date and hour inputs
         $dateHour = $date . ' ' . $hour . ':00';
         
+        // check 'dateHour' existance on database
+        $exist = Appointment::exists($dateHour);
+        if($exist){
+            $error["exist"] = 'exists';
+            SessionFlash::set(false,'Cette Jour et horaire est deja pris.');
+        }
 
-        $appointment = new Appointment;
-        $appointment->setDateHour($dateHour);
-        $appointment->setIdPatient($patientId);
-        $isAdded = $appointment->add();
-        if ($isAdded != false) {
-            SessionFlash::set(true, 'Le rendez-vous a bien etais ajoute');
-        } else {
-            SessionFlash::set(false, 'Le rendez-vous n\'as pas etais ajoute!');
+        if(empty($error))
+        {
+            $appointment = new Appointment;
+            $appointment->setDateHour($dateHour);
+            $appointment->setIdPatient($patientId);
+            $isAdded = $appointment->add();
+            if ($isAdded != false) {
+                SessionFlash::set(true, 'Le rendez-vous a bien etais ajoute');
+            } else {
+                SessionFlash::set(false, 'Le rendez-vous n\'as pas etais ajoute!');
+            }
         }
     }
 } catch (\Throwable $th) {

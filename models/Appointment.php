@@ -148,10 +148,27 @@ class Appointment
     {
         $pdo = Database::getInstance();
         $sql = 'SELECT COUNT(*) AS count FROM `appointments`';
-        if($id != 0) $sql .= "WHERE `idpatient` = $id";
+        if($id != 0) $sql .= " WHERE `idpatient` = :id";
         $sql .= ';';
-        $stmt = $pdo->query($sql);
+        $stmt = $pdo->prepare($sql);
+        if($id != 0)$stmt->bindValue(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
         $stmt = $stmt->fetch();
         return intval($stmt->count);
     }
+
+    public static function exists($datehour):bool
+    {
+        $pdo = Database::getInstance();
+        $sql = 'SELECT `id` FROM `appointments` WHERE `datehour` = :datehour;';
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindValue(':datehour', $datehour);
+        $stmt->execute();
+        if(empty($stmt->fetch())){
+            return false;
+        } else { 
+            return true;
+        };
+    }
+
 }

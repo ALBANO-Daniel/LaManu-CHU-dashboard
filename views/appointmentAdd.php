@@ -42,7 +42,7 @@
             <div class="row">
                 <div id="datePicker" class="input-field col s12">
                     <i class="material-icons prefix light-blue-text text-darken-4">date_range</i>
-                    <input name="date" id="date" type="text" class="datepicker validate" value="<?= $appointmentDate ?? '' ?>" />
+                    <input name="date" id="date" type="text" class="datepicker validate" value="<?= $date ?? '' ?>" />
                     <label for="date">Date Naissance</label>
                     <span class="helper-text" data-error="date obligatoire" data-sucess=""><span id="birthdateError" class="error-text"><?= $error['date'] ?? '' ?></span></span>
                 </div>
@@ -81,7 +81,7 @@
                         <option>21:30</option>
                         <option>22:00</option>
                         <option>22:30</option>
-                        <option class="greyText" value="" disabled selected>Choisir une horaire</option>
+                        <option class="greyText" value="<?= $time ?? '' ?>" disabled selected>Choisir une horaire</option>
                     </select>
                     <span class="helper-text" data-error="horaire obligatoire" data-sucess=""><span id="hourerror" class="error-text"><?= $error['hour'] ?? '' ?></span></span>
                 </div>

@@ -78,7 +78,10 @@ try {
             $error["phone"] = "Le telephone est obligatoire!!";
         }
 
-        if(Patient::emailExist($email)) $error = 'email existant'; 
+        if(Patient::emailExist($email)){
+            $error = 'email existant';
+            SessionFlash::set(false,'Cet e-mail appartient déjà à quelqu\'un.');
+        }
 
         if (empty($error)) {
             $patient = new Patient();
