@@ -5,8 +5,8 @@ require_once(__DIR__ . '/../helpers/functions/Database.php');
 class Appointment
 {
     private int $_id;
-    private string $_dateHour;
-    private int $_idPatient;
+    private string $_datehour;
+    private int $_idpatient;
     // private string $_doctorName;
 
 // getters -- setters
@@ -20,24 +20,24 @@ class Appointment
         return $this->_id;
     }
 
-    public function setDateHour(int $dateHour):void
+    public function setDateHour(string $datehour):void
     {
-        $this->_dateHour = $dateHour;
+        $this->_datehour = $datehour;
     }
 
     public function getDateHour():string
     {
-        return $this->_dateHour;
+        return $this->_datehour;
     }
 
-    public function setIdPatient(int $idPatient):void
+    public function setIdPatient(int $idpatient):void
     {
-        $this->_id = $idPatient;
+        $this->_idpatient = $idpatient;
     }
 
     public function getIdPatient():int
     {
-        return $this->_idPatient;
+        return $this->_idpatient;
     }
 // END getters -- setters
 
@@ -57,8 +57,11 @@ class Appointment
         $stmt->bindValue(':idpatient', $this->getIdPatient(), PDO::PARAM_INT);
         if ($stmt->execute()) {
             return ($stmt->rowCount() > 0) ? true : false;
+        } else {
+            return false;
         }
     }
+
     public static function delete(int $id):bool
     {
         $pdo = Database::getInstance();
@@ -80,13 +83,13 @@ class Appointment
      */
     public function update(int $id): bool
     {
-        $sql = 'UPDATE `appointments` SET `dateHour` = :dateHour, `idPatients` = :idPatients
+        $sql = 'UPDATE `appointments` SET `datehour` = :dateHour, `idpatients` = :idpatients
                     WHERE `id` = :id;';
 
         $sth = $this->pdo->prepare($sql);
 
         $sth->bindValue(':dateHour', $this->getDateHour(), PDO::PARAM_STR);
-        $sth->bindValue(':idPatients', $this->getIdPatients(), PDO::PARAM_INT);
+        $sth->bindValue(':idpatients', $this->getIdPatient(), PDO::PARAM_INT);
         $sth->bindValue(':id', $id, PDO::PARAM_INT);
 
         if ($sth->execute()) {
@@ -119,22 +122,36 @@ class Appointment
      * 
      * @return array
      */
-    public static function getAll(int $id = 0):array
+    public static function getAll(int $currentPage, int $patientsPerPage, int $id = 0):array
     {
+            // limit by 8-12 per page, in request sql with offset -> 
         $pdo = Database::getInstance();
+        $offset = $currentPage * $patientsPerPage;
         $sql = 'SELECT 
         `appointments`.`id`,
         `patients`.`lastname`,
         `patients`.`firstname`,
-        `appointments`.`dateHour`
+        `appointments`.`datehour`,
+        `appointments`.`idpatient`
         FROM `patients`
         RIGHT JOIN `appointments`
-        ON `patients`.`id` = `appointments`.`idPatient`';
-        if($id != 0)  $sql .= 'WHERE `patients`.`id` = :id';
-        $sql .= ';';
+        ON `patients`.`id` = `appointments`.`idpatient`';
+        if($id != 0)  $sql .= ' WHERE `patients`.`id` = :id';
+        $sql .= " LIMIT $patientsPerPage OFFSET $offset;";
         $stmt = $pdo->prepare($sql);
-        if($id != 0) $stmt->bindParam(':id', $id);
+        if($id != 0) $stmt->bindValue(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
         return $stmt->fetchAll();
+    }
+    
+    public static function getTotalNumberOf(int $id = 0):int
+    {
+        $pdo = Database::getInstance();
+        $sql = 'SELECT COUNT(*) AS count FROM `appointments`';
+        if($id != 0) $sql .= "WHERE `idpatient` = $id";
+        $sql .= ';';
+        $stmt = $pdo->query($sql);
+        $stmt = $stmt->fetch();
+        return intval($stmt->count);
     }
 }

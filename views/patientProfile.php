@@ -113,7 +113,7 @@
     </div>
 
     <!-- RENDEZ-VOUS  -->
-    <section class="card">
+    <section id="appointmentList" class="card">
         <nav class=" light-blue darken-4">
             <h2 class="center">PATIENT RENDEZ-VOUS</h2>
         </nav>
@@ -125,14 +125,79 @@
             </div>
             <div class="col m4"></div>
         </div>
-        <!-- patient list  -->
+        <!-- appointment list  -->
         <?php
-        foreach ($appointmentList as $appointment) { ?>
-            <div class="card row">
-                <div class="col s11 m5"><?= $appointment->dateHour ?></div><span class="s1 m1"><a href="/patientprofile?id=<?= $patientId ?>"><i class="material-icons">person</i></a></span>
-                <div class="col s11 m5"><?= strtoupper($appointment->doctorName) ?></div><span class="s1 m1"><a href="/patientdelete?deleteid=<?= $patientId ?>"><i class="material-icons red-text">delete_forever</i></a></span>
-            </div>
-        <?php } ?>
+                foreach ($appointmentList as $appointment) { 
+                    $dateHour = explode(' ', $appointment->datehour);
+                    $date = $dateHour[0];
+                    $time = $dateHour[1];
+                    $time = explode(':', $time);
+                    $time = $time[0] . ':' . $time[1];
+                    ?>
+                    <div class="card row">
+                        <div class="col s11 m5"><?= $date .' -- '. $time ?></div><span class="s1 m1"><a href="/appointmentdelete?id=<?= $appointment->id ?>"><i class="material-icons red-text">delete_forever</i></a></span>
+                    </div>
+                <?php } ?>
+<!-- TEST TEST TEST  -->
+                <a href="#appointmentList&?id=<?= $patientId?>&?page=1"><?= $page + 1 ?></a>
+
+                <!-- pagination list  -->
+                <ul class="row pagination">
+                    <?php if ($appointmentListPagesActual != 0) { ?>
+                        <li class="waves-effect"><a href="?id=<?= $patientId?>&?page=<?= $appointmentListPagesActual - 1 ?>"><i class="material-icons">chevron_left</i></a></li>
+                    <?php } else { ?>
+                        <li class="waves-effect hidden"><a href="?id=<?= $patientId?>&?page=<?= $appointmentListPagesActual - 1 ?>"><i class="material-icons">chevron_left</i></a></li>
+                    <?php } ?>
+
+                    <?php if ($totalPages <= $pagesPerPagination) {
+                        for ($page = 0; $page <= $totalPages; $page++) { ?>
+                            <li class="<?= $appointmentListPagesActual == $page ? 'active' : 'waves-effect' ?>">
+                                <a href="?id=<?= $patientId?>&?page=<?= $page ?>"><?= $page + 1 ?></a>
+                            </li>
+                        <?php } ?>
+                        <?php } else if ($appointmentListPagesActual < $pagesPerPagination - 1) {
+
+                        for ($page = 0; $page < $pagesPerPagination; $page++) { ?>
+                            <li class="<?= $appointmentListPagesActual == $page ? 'active' : 'waves-effect' ?>">
+                                <a href="?id=<?= $patientId?>&?page=<?= $page ?>"><?= $page + 1 ?></a>
+
+                            </li>
+                        <?php } ?>
+                        <span> . . . </span>
+                        <a href="?id=<?= $patientId?>&?page=<?= $totalPages ?>"><?= $totalPages ?></a>
+
+                    <?php } else if ($appointmentListPagesActual >= $pagesPerPagination - 1 && $appointmentListPagesActual < ($totalPages - $halfUpPagesPerPagination)) { ?>
+
+                        <a href="?id=<?= $patientId?>&?page=<?= 0 ?>">0</a>
+                        <span> . . . </span>
+
+                        <?php for ($page = $appointmentListPagesActual - $halfPagesPerPagination; $page <= $appointmentListPagesActual + $halfPagesPerPagination; $page++) { ?>
+                            <li class="<?= $appointmentListPagesActual == $page ? 'active' : 'waves-effect' ?>">
+                                <a href="?id=<?= $patientId?>&?page=<?= $page ?>"><?= $page + 1 ?></a>
+                            </li>
+                        <?php } ?>
+
+                        <span> . . . </span>
+                        <a href="?id=<?= $patientId?>&?page=<?= $totalPages ?>"><?= $totalPages ?></a>
+
+                    <?php } else { ?>
+                        <a href="?id=<?= $patientId?>&?page=<?= 0 ?>">0</a>
+                        <span> . . . </span>
+
+                        <?php for ($page = $currentPage - $halfPagesPerPagination; $page <= $totalPages; $page++) { ?>
+                            <li class="<?= $currentPage == $page ? 'active' : 'waves-effect' ?>">
+                                <a href="?id=<?= $patientId?>&?page=<?= $page ?>"><?= $page + 1 ?></a>
+                            </li>
+                        <?php } ?>
+
+                    <?php } ?>
+
+                    <?php if ($appointmentListPagesActual != $totalPages) { ?>
+                        <li class="waves-effect"><a href="?id=<?= $patientId?>&?page=<?= $appointmentListPagesActual + 1 ?>"><i class="material-icons">chevron_right</i></a></li>
+                    <?php } else { ?>
+                        <li class="waves-effect hidden"><a href="?id=<?= $patientId?>&?page=<?= $appointmentListPagesActual + 1 ?>"><i class="material-icons">chevron_right</i></a></li>
+                    <?php } ?>
+                </ul>
 
         
     </section>

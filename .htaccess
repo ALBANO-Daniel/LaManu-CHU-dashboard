@@ -16,6 +16,7 @@ RewriteRule ^patientdelete$ controllers/patientDeleteController.php
 RewriteRule ^appointmentlist$ controllers/appointmentListController.php
 RewriteRule ^appointmentadd$ controllers/appointmentAddController.php
 RewriteRule ^appointmentprofile$ controllers/appointmentProfileController.php
+RewriteRule ^appointmentdelete$ controllers/appointmentDeleteController.php
 
 RewriteRule ^pagination$ helpers/sandbox/pagination.php
 

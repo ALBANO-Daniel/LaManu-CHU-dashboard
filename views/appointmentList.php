@@ -18,38 +18,44 @@
     } ?>
         <!-- main card  -->
         <div class="card center">
-            <section class="listPatient">
+            <section class="listAppointment">
                 <nav class=" light-blue darken-4">
                     <h2 class="center flex">LISTE DES RENDEZ-VOUS</h2>
                 </nav>
                 <br>
                 <!-- appointment list  -->
                 <?php
-                foreach ($patientList as $patient) { ?>
+                foreach ($appointmentList as $appointment) { 
+                    $dateHour = explode(' ', $appointment->datehour);
+                    $date = $dateHour[0];
+                    $time = $dateHour[1];
+                    $time = explode(':', $time);
+                    $time = $time[0] . ':' . $time[1];
+                    ?>
                     <div class="card row">
-                        <div class="col s11 m5"><?= $patient->firstname ?></div><span class="s1 m1"><a href="/patientprofile?id=<?= $patient->id ?>"><i class="material-icons">person</i></a></span>
-                        <div class="col s11 m5"><?= strtoupper($patient->lastname) ?></div><span class="s1 m1"><a href="/patientdelete?deleteid=<?= $patient->id ?>"><i class="material-icons red-text">delete_forever</i></a></span>
+                        <div class="col s11 m5"><?= $appointment->firstname . ' ' . strtoupper($appointment->lastname) ?></div><span class="s1 m1"><a href="/patientprofile?id=<?= $appointment->idpatient ?>"><i class="material-icons">person</i></a></span>
+                        <div class="col s11 m5"><?= $date .' -- '. $time ?></div><span class="s1 m1"><a href="/appointmentdelete?id=<?= $appointment->id ?>"><i class="material-icons red-text">delete_forever</i></a></span>
                     </div>
                 <?php } ?>
 
                 <!-- pagination list  -->
                 <ul class="row pagination">
-                    <?php if ($patientListPagesActual != 0) { ?>
-                        <li class="waves-effect"><a href="?page=<?= $patientListPagesActual - 1 ?>"><i class="material-icons">chevron_left</i></a></li>
+                    <?php if ($appointmentListPagesActual != 0) { ?>
+                        <li class="waves-effect"><a href="?page=<?= $appointmentListPagesActual - 1 ?>"><i class="material-icons">chevron_left</i></a></li>
                     <?php } else { ?>
-                        <li class="waves-effect hidden"><a href="?page=<?= $patientListPagesActual - 1 ?>"><i class="material-icons">chevron_left</i></a></li>
+                        <li class="waves-effect hidden"><a href="?page=<?= $appointmentListPagesActual - 1 ?>"><i class="material-icons">chevron_left</i></a></li>
                     <?php } ?>
 
                     <?php if ($totalPages <= $pagesPerPagination) {
                         for ($page = 0; $page <= $totalPages; $page++) { ?>
-                            <li class="<?= $patientListPagesActual == $page ? 'active' : 'waves-effect' ?>">
+                            <li class="<?= $appointmentListPagesActual == $page ? 'active' : 'waves-effect' ?>">
                                 <a href="?page=<?= $page ?>"><?= $page + 1 ?></a>
                             </li>
                         <?php } ?>
-                        <?php } else if ($patientListPagesActual < $pagesPerPagination - 1) {
+                        <?php } else if ($appointmentListPagesActual < $pagesPerPagination - 1) {
 
                         for ($page = 0; $page < $pagesPerPagination; $page++) { ?>
-                            <li class="<?= $patientListPagesActual == $page ? 'active' : 'waves-effect' ?>">
+                            <li class="<?= $appointmentListPagesActual == $page ? 'active' : 'waves-effect' ?>">
                                 <a href="?page=<?= $page ?>"><?= $page + 1 ?></a>
 
                             </li>
@@ -57,13 +63,13 @@
                         <span> . . . </span>
                         <a href="?page=<?= $totalPages ?>"><?= $totalPages ?></a>
 
-                    <?php } else if ($patientListPagesActual >= $pagesPerPagination - 1 && $patientListPagesActual < ($totalPages - $halfUpPagesPerPagination)) { ?>
+                    <?php } else if ($appointmentListPagesActual >= $pagesPerPagination - 1 && $appointmentListPagesActual < ($totalPages - $halfUpPagesPerPagination)) { ?>
 
                         <a href="?page=<?= 0 ?>">0</a>
                         <span> . . . </span>
 
-                        <?php for ($page = $patientListPagesActual - $halfPagesPerPagination; $page <= $patientListPagesActual + $halfPagesPerPagination; $page++) { ?>
-                            <li class="<?= $patientListPagesActual == $page ? 'active' : 'waves-effect' ?>">
+                        <?php for ($page = $appointmentListPagesActual - $halfPagesPerPagination; $page <= $appointmentListPagesActual + $halfPagesPerPagination; $page++) { ?>
+                            <li class="<?= $appointmentListPagesActual == $page ? 'active' : 'waves-effect' ?>">
                                 <a href="?page=<?= $page ?>"><?= $page + 1 ?></a>
                             </li>
                         <?php } ?>
@@ -83,10 +89,10 @@
 
                     <?php } ?>
 
-                    <?php if ($patientListPagesActual != $totalPages) { ?>
-                        <li class="waves-effect"><a href="?page=<?= $patientListPagesActual + 1 ?>"><i class="material-icons">chevron_right</i></a></li>
+                    <?php if ($appointmentListPagesActual != $totalPages) { ?>
+                        <li class="waves-effect"><a href="?page=<?= $appointmentListPagesActual + 1 ?>"><i class="material-icons">chevron_right</i></a></li>
                     <?php } else { ?>
-                        <li class="waves-effect hidden"><a href="?page=<?= $patientListPagesActual + 1 ?>"><i class="material-icons">chevron_right</i></a></li>
+                        <li class="waves-effect hidden"><a href="?page=<?= $appointmentListPagesActual + 1 ?>"><i class="material-icons">chevron_right</i></a></li>
                     <?php } ?>
                 </ul>
 
