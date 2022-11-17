@@ -20,5 +20,3 @@ RewriteRule ^appointmentadd$ controllers/appointmentAddController.php
 RewriteRule ^appointmentprofile$ controllers/appointmentProfileController.php
 RewriteRule ^appointmentdelete$ controllers/appointmentDeleteController.php
 
-RewriteRule ^pagination$ helpers/sandbox/pagination.php
-

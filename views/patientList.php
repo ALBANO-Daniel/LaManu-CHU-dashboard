@@ -11,6 +11,7 @@
             print_r($msg[1])?>
                 </p> 
         <?php } ?>
+    
     <!-- main card  -->
     <div class="card center">
         <section class="listPatient">
@@ -33,59 +34,55 @@
             
             <!-- pagination list  -->
             <ul class="row pagination">
-            <?php if($patientListPagesActual != 0){ ?>
-                <li class="waves-effect"><a href="?page=<?= $patientListPagesActual - 1 ?>"><i class="material-icons">chevron_left</i></a></li>
-                <?php } else { ?>
-                <li class="waves-effect hidden"><a href="?page=<?= $patientListPagesActual - 1 ?>"><i class="material-icons">chevron_left</i></a></li>
+            <?php if($page != 1){ ?>
+                <li class="waves-effect"><a href="?page=<?= $page -1 ?>"><i class="material-icons">chevron_left</i></a></li>
                 <?php } ?>
                 
                 <?php if( $totalPages <= $pagesPerPagination){
-                    for($page = 0; $page <= $totalPages; $page++){ ?>
-                        <li class="<?= $patientListPagesActual == $page ? 'active' : 'waves-effect' ?>">
-                            <a href="?page=<?= $page ?>"><?= $page+1 ?></a>
+                    for($i = 1; $i <= $totalPages; $i++){ ?>
+                        <li class="<?= $i == $page ? 'active' : 'waves-effect' ?>">
+                            <a href="?page=<?= $i ?>"><?= $i ?></a>
                         </li>
                     <?php } ?>
-                <?php } else if ($patientListPagesActual < $pagesPerPagination - 1) {
 
-                    for ($page = 0; $page < $pagesPerPagination; $page++) { ?>
-                        <li class="<?= $patientListPagesActual == $page ? 'active' : 'waves-effect' ?>">
-                            <a href="?page=<?= $page ?>"><?= $page+1 ?></a>
+                <?php } else if ($page < $pagesPerPagination - 1) {
+
+                    for ($i = 1; $i < $pagesPerPagination; $i++) { ?>
+                        <li class="<?= $i == $page ? 'active' : 'waves-effect' ?>">
+                            <a href="?page=<?= $i ?>"><?= $i ?></a>
 
                         </li>
                     <?php } ?>
                     <span> . . . </span>
-                    <a href="?page=<?= $totalPages ?>"><?= $totalPages ?></a>
+                    <li class="waves-efect"><a href="?page=<?= $totalPages ?>"><?= $totalPages ?></a></li>
 
-                <?php } else if ($patientListPagesActual >= $pagesPerPagination - 1 && $patientListPagesActual < ($totalPages - $halfUpPagesPerPagination)) { ?>
+                <?php } else if ($page >= $pagesPerPagination - 1 && $page < ($totalPages - $halfUpPagesPerPagination)) { ?>
 
-                    <a href="?page=<?= 0 ?>">0</a>
+                    <li class="waves-efect"><a href="?page=1">1</a></li>
                     <span> . . . </span>
 
-                    <?php for ($page = $patientListPagesActual - $halfPagesPerPagination; $page <= $patientListPagesActual + $halfPagesPerPagination; $page++) { ?>
-                        <li class="<?= $patientListPagesActual == $page ? 'active' : 'waves-effect' ?>">
-                            <a href="?page=<?= $page ?>"><?= $page+1 ?></a>
+                    <?php for ($i = $page - $halfPagesPerPagination; $i <= $page + $halfPagesPerPagination; $i++) { ?>
+                        <li class="<?= $i == $page ? 'active' : 'waves-effect' ?>">
+                            <a href="?page=<?= $i ?>"><?= $i ?></a>
                         </li>
                     <?php } ?>
 
                     <span> . . . </span>
-                    <a href="?page=<?= $totalPages ?>"><?= $totalPages ?></a>
+                    <li class="waves-efect"><a href="?page=<?= $totalPages ?>"><?= $totalPages ?></a></li>
 
                 <?php } else { ?>
-                    <a href="?page=<?= 0 ?>">0</a>
+                    <li class="waves-efect"><a href="?page=1">1</a></li>
                     <span> . . . </span>
 
-                    <?php for ($page = $currentPage - $halfPagesPerPagination; $page <= $totalPages; $page++) { ?>
-                        <li class="<?= $currentPage == $page ? 'active' : 'waves-effect' ?>">
-                            <a href="?page=<?= $page ?>"><?= $page+1 ?></a>
+                    <?php for ($i = $page - $halfPagesPerPagination; $i <= $totalPages; $i++) { ?>
+                        <li class="<?= $i == $page ? 'active' : 'waves-effect' ?>">
+                            <a href="?page=<?= $i ?>"><?= $i ?></a>
                         </li>
                     <?php } ?>
-
                 <?php } ?>
 
-                <?php if($patientListPagesActual != $totalPages){ ?>
-                    <li class="waves-effect"><a href="?page=<?= $patientListPagesActual + 1 ?>"><i class="material-icons">chevron_right</i></a></li>
-                <?php } else { ?>
-                    <li class="waves-effect hidden"><a href="?page=<?= $patientListPagesActual + 1 ?>"><i class="material-icons">chevron_right</i></a></li>
+                <?php if($page != $totalPages){ ?>
+                    <li class="waves-effect"><a href="?page=<?= $page + 1 ?>"><i class="material-icons">chevron_right</i></a></li>
                 <?php } ?>
             </ul>
 

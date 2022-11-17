@@ -170,24 +170,49 @@ class Patient
         return $stmt->fetch();
     }
     
-    public static function getTotalNumberOf()
+    public static function getTotalNumberOf($search = '')
     {
         $pdo = Database::getInstance();
-        $sql = 'SELECT COUNT(*) AS count FROM `patients`;';
-        $stmt = $pdo->query($sql);
-        $stmt = $stmt->fetch();
-        return intval($stmt->count);
+        $sql = 'SELECT COUNT(`id`) AS count FROM `patients`';
+        if($search != '')
+        {
+            $sql .= ' WHERE `lastname` LIKE :search OR `email` LIKE :search ';
+        }
+        $sql .= ';';
+        $stmt = $pdo->prepare($sql);
+        if($search != '')
+        {
+            $stmt->bindValue(':search', '%'.$search.'%');
+        }
+        $stmt->execute();
+        $obj = $stmt->fetch();
+        return intval($obj->count);
     }
 
-    public static function getAll(int $currentPage, int $patientsPerPage):array
+    public static function getAll(int $currentPage = 1, int $patientsPerPage = 0, $search = ''):array
     {
-        // limit by 8-12 per page, in request sql with offset -> 
         $pdo = Database::getInstance();
-        $offset = $currentPage * $patientsPerPage;
+        $offset = ($currentPage-1) * $patientsPerPage; // offset can be set out of method 
         $sql = "SELECT `id`, `firstname`, `lastname`, `birthdate`, `phone`, `email` 
-        FROM `patients`
-        LIMIT $patientsPerPage OFFSET $offset;";
-        $stmt = $pdo->query($sql);
+        FROM `patients`";
+        if($search != ''){
+            $sql .= ' WHERE `lastname` LIKE :search OR `email` LIKE :search ';
+        }
+        if($patientsPerPage != 0)
+        {
+            $sql .= ' LIMIT :patientsPerPage OFFSET :offset;';
+        }
+        $stmt = $pdo->prepare($sql);
+        if($search != '')
+        {
+            $stmt->bindValue(':search', '%'.$search.'%');
+        }
+        if($patientsPerPage != 0)
+        {
+            $stmt->bindValue( ':patientsPerPage', $patientsPerPage, PDO::PARAM_INT);
+            $stmt->bindValue( ':offset', $offset, PDO::PARAM_INT);
+        }
+        $stmt->execute();
         return $stmt->fetchAll();
     }
 }

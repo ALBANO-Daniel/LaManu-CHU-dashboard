@@ -22,6 +22,8 @@ define('REGEX_DATE','^([0-9]{4})[\/\-]?([0-9]{2})[\/\-]?([0-9]{2})$');
 
 define('AUTHORIZED_IMAGE_FORMAT', ['image/jpeg', 'image/png']);
 
+define('ELEMENTS_PER_PAGE', 10);
+
 
                                                                 //
 
