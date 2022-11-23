@@ -12,7 +12,7 @@ try {
     $addedPatientId = '';
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-        //===================== firstname : Nettoyage et validation =======================
+    //===================== firstname : Nettoyage et validation =======================
         $firstname = trim(filter_input(INPUT_POST, 'firstname', FILTER_SANITIZE_SPECIAL_CHARS));
         if (empty($firstname)) {
             $error['firstname'] = "Vous devez entrer un prenom!!";
